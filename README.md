@@ -11,7 +11,7 @@ chúng
 
 Các kỹ thuật được áp dụng như sau:
 * [Learned Features](#learned-features): Những features nào mà network đã học được ?
-* [Pixel Attribution (Saliency Maps)](): Các pixel đóng góp như thế nào vào việc đưa ra quyết định của model ?
+* [Pixel Attribution (Saliency Maps)](#pixel-attribution-saliency-maps): Các pixel đóng góp như thế nào vào việc đưa ra quyết định của model ?
 * [Concepts](): Những concept trừu tượng nào mà Neural Net đã học ? 
 * [Adversarial Examples](): Làm cách nào ta có thể đánh lừa được Neural Network
 * [Influential Instances](): ???
@@ -242,16 +242,74 @@ filter = 1
 
 #### 4. Evaluation
 
+Để kiểm tra tính đúng đắn cho quá trình Optimization, ta thử feed ảnh được Optimized sẵn cho mỗi class của VGG19 ở trên 
+vào trong script ```main.py``` của thư mục ```CheckingModelPrediction```:
 
+Đối với class: umbrela
+```python
+Prediction of VGG model 
+Class: umbrella 
+Percentage: 99.99665069580078
+```
 
-## Network Dissection
+Đối với class: goldFish 
+```python 
+Prediction of VGG model 
+Class: goldfish, Carassius auratus 
+Percentage: 100.0
+```
+
+### Network Dissection
 
 Phần này chưa đụng tới. 
 
+
+## Pixel Attribution (Saliency Maps)
+
+Pixel attribution methods (phương pháp liên quan đến sự phân bổ của pixel) làm nổi bật các pixel trong ảnh đầu vào có 
+liên quan đến một lớp phân loại ảnh nhất định trong mạng thần kinh. 
+
+Pixel attribution methods còn có nhiều tên gọi khác nhau: Sensitivity map, saliency map, pixel attribution map, gradient-based 
+attribution methods, feature relevance, feature attribution và feature contribution.
+
+Pixel attribution là một trường hợp đặc biệt của feature attribution, áp dụng đối với ảnh. Feature attribution giải thích
+các dự đoán riêng lẻ bằng cách phân bổ từng tính năng vào (input feature) theo mức độ mà nó đã thay đổi dự đoán (tiêu cực hoặc tích 
+cực). Features ở đây có thể là input pixels, bảng biểu hoặc là các từ ...
+
+Có 2 kiểu của phương pháp attribution:
+
+* **Occlusion-or pertubation-based**: Cái này chưa đụng tới
+* **Gradient-based**: Rất nhiều phương pháp tính toán gradient của prediction (hoặc là classification score) w.r.t input
+features. Các phương pháp liên quan đến Gradient-based đa phần khác nhau ở cách mà gradient được tính toán. 
+
+Cả hai cách tiếp cận này đều có điểm chung đó là kết quả tạo ra có cùng kích thước đối với lại ảnh đầu vào, và chúng gán cho mỗi pixel
+một giá trị có thể được hiểu là mức độ liên quan của pixel đối với dự đoán hoặc phân loại của hình ảnh đó. 
+
+
+Ta sử dụng các ký hiệu như sau, ta có một mạng neuron có đầu ra dự đoán là một vector có chiều dài là C. Đầu ra từ mạng cho 
+ảnh đầu vào I được gọi là S(I) và: 
+
+<img src="https://render.githubusercontent.com/render/math?math=S(I) = [S_1(I), S_2(I), ..., S_C(I)]">
+
+
+
+
+### Vanilla Gradient (Saliency Maps)
+
+Ý tưởng về Vanilla Gradient được giới thiệu bởi Simonyan vào năm 2013. Đối với phương pháp này, ta sẽ tính toán gradient 
+của hàm mất mát đối với lớp mà ta muốn visual w.r.t input pixels. Việc này tạo ra một map với kích thước tương đương với 
+input features với các giá trị từ âm đến dương. 
+
+Cách thực hiện của phương pháp này đó là: 
+1. Thực hiện forward pass đối với ảnh mà ta muốn thực hiện
+2. Tính toán gradient 
 
 ## References
 [1] [Feature Visualization Implementation using FastAI](https://towardsdatascience.com/how-to-visualize-convolutional-features-in-40-lines-of-code-70b7d87b0030)
 
 [2] [Feature Visualization Distill pub](https://distill.pub/2017/feature-visualization/)
+
+[3] [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/)
+
 
 
