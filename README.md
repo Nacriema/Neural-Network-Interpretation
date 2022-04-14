@@ -246,6 +246,8 @@ filter = 1
 vào trong script ```main.py``` của thư mục ```CheckingModelPrediction```:
 
 Đối với class: umbrela
+Ta feed vào model ảnh: 
+![](./images/layer_classifier_6879.jpg)
 ```python
 Prediction of VGG model 
 Class: umbrella 
@@ -253,6 +255,8 @@ Percentage: 99.99665069580078
 ```
 
 Đối với class: goldFish 
+Ta feed vào model ảnh:
+![](./images/layer_classifier_61.jpg)
 ```python 
 Prediction of VGG model 
 Class: goldfish, Carassius auratus 
