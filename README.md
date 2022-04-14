@@ -291,8 +291,10 @@ Ta sử dụng các ký hiệu như sau, ta có một mạng neuron có đầu r
 
 <img src="https://render.githubusercontent.com/render/math?math=S(I) = [S_1(I), S_2(I), ..., S_C(I)]">
 
-
-
+Tất cả các phương pháp nhận đầu vào là <img src="https://render.githubusercontent.com/render/math?math=x \in \mathbb{R} ^ p"> 
+(có thể là image pixels, tabular data, words, ...) với p features và đầu ra của thuật toán là sự giải thích cho các 
+mức độ đóng góp của từng điểm đầu vào cho dự đoán: <img src="https://render.githubusercontent.com/render/math?math=R^c = [R_1^c, R_2^c, ..., R_p^c]">. 
+Chỉ số c thể hiện cho class mà ta muốn visualize.
 
 ### Vanilla Gradient (Saliency Maps)
 
@@ -302,7 +304,56 @@ input features với các giá trị từ âm đến dương.
 
 Cách thực hiện của phương pháp này đó là: 
 1. Thực hiện forward pass đối với ảnh mà ta muốn thực hiện
-2. Tính toán gradient 
+2. Tính toán gradient của lớp muốn visualize w.r.t với lại input pixels: 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://render.githubusercontent.com/render/math?math=E_{grad}(I_0) = \frac{\partial S_c}{\partial I}|_{I = I_0}">
+
+Ở đây ta thiết lập các class khác về 0
+3. Visualize gradients. Ta có thể visual giá trị tuyệt đối hoặc highlight giá trị gradient âm lẫn dương.
+
+Nói cách khác, ta có ảnh đầu vào I và mạng neuron tạo ra Score S_c(I) cho lớp c. Đó là kết quả của một hàm phi tuyến khi
+áp dụng vào hình .ảnh Ý tưởng đằng sau việc sử dụng gradient đó là ta có thể xấp xỉ điểm số đó bằng cách sử dụng khai 
+triển Taylor bậc 1: 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://render.githubusercontent.com/render/math?math=S_c(I) \approx w^T I + b">
+
+Với w là đạo hàm của điểm: 
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://render.githubusercontent.com/render/math?math=w = \frac{\partial S_c}{\partial I}|_{I_0}">
+
+Ở đây, có một sự nhập nhằng khi thực hiện backward pass cho gradients, bởi vì các hàm phi tuyến như là ReLU. Vì thế khi 
+thực hiện backwardpass, ta không biết gán giá trị dương hay âm cho activation. Theo ký hiệu, hàm ReLU áp dụng tại layer 
+n + 1: 
+```X_n+1(x) = max(0, X_n)``` từ lớp X_n sang lớp X_n+1. Điều này có nghĩa là khi activation của một neuron là 0, ta không
+biết được giá trị nào nên backpropagate lại. Đối với trường hợp của Vanilla Gradient, sự nhập nhằng được giải quyết như sau:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://render.githubusercontent.com/render/math?math=\frac{\partial f}{\partial X_n} = \frac{\partial f}{\partial X_{n+1}}.I(X_n > 0)">
+
+Ở đây, I là hàm element wise indicator function, giá trị tại các phần từ của nó là 0 nếu như activation tại vị trí tương 
+ứng của lớp phía sau là âm, và là 1 nếu như giá trị tại activation là 0 hoặc là dương. Điều này tương ứng cho autograd của 
+nn.ReLU trong Pytorch. 
+
+Một ví dụ, ta có layers X_n và X_n+1 = ReLU(X_n)
+
+Giả sử tại X_n ta có activation của nó là:
+
+```
+|1     0|
+|-1  -10|
+```
+
+Và Gradient của ta tại Layer X_n+1 là: 
+```
+|0.4     1.1|
+|-0.5   -0.1|
+```
+
+Thì gradients của ta tại X_n là:
+
+```
+|0.4    0|
+|0      0|
+```
 
 ## References
 [1] [Feature Visualization Implementation using FastAI](https://towardsdatascience.com/how-to-visualize-convolutional-features-in-40-lines-of-code-70b7d87b0030)
