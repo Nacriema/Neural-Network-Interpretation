@@ -10,11 +10,11 @@ chúng
 2. Tín hiệu gradient truyền ngược có thể sử dụng để hiểu model. 
 
 Các kỹ thuật được áp dụng như sau:
-* Learned Features: Những features nào mà network đã học được ?
-* Pixel Attribution (Saliency Maps): Các pixel đóng góp như thế nào vào việc đưa ra quyết định của model ?
-* Concepts: Những concept trừu tượng nào mà Neural Net đã học ? 
-* Adversarial Examples: Làm cách nào ta có thể đánh lừa được Neural Network
-* Influential Instances: ???
+* [Learned Features](#learned-features): Những features nào mà network đã học được ?
+* [Pixel Attribution (Saliency Maps)](): Các pixel đóng góp như thế nào vào việc đưa ra quyết định của model ?
+* [Concepts](): Những concept trừu tượng nào mà Neural Net đã học ? 
+* [Adversarial Examples](): Làm cách nào ta có thể đánh lừa được Neural Network
+* [Influential Instances](): ???
 
 
 ## Learned Features 
@@ -29,7 +29,7 @@ sẽ chuyển thành dự đoán.
 * Tầng sâu nhất của CNN học các đặc trưng như là toàn bộ hay là một phần của vật thể.
 * Tầng fully connected layers học cách kết nối các activations từ các features nhiều chiều về các lớp cần được phân tách.
 
-Các cách để có thể chứng minh cho những điều nói ở trên:
+Các cách để có thể chứng minh cho những điều nói ở trên
 
 ### Feature Visualization
 
