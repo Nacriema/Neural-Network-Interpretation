@@ -12,6 +12,10 @@ chúng
 Các kỹ thuật được áp dụng như sau:
 * [Learned Features](#learned-features): Những features nào mà network đã học được ?
 * [Pixel Attribution (Saliency Maps)](#pixel-attribution-saliency-maps): Các pixel đóng góp như thế nào vào việc đưa ra quyết định của model ?
+  * [Vanilla Gradient](#vanilla-gradient-saliency-maps)
+  * [DeconvNet](#deconvnet)
+  * [Grad-CAM](#grad-cam)
+  * [Guided Grad-CAM](#guided-grad-cam)
 * [Concepts](): Những concept trừu tượng nào mà Neural Net đã học ? 
 * [Adversarial Examples](): Làm cách nào ta có thể đánh lừa được Neural Network
 * [Influential Instances](): ???
@@ -394,6 +398,110 @@ Kết quả thu được khi áp dụng Vanilla Gradient đối với VGG19
 | ![](images/layer_classifier_61.jpg) | ![](images/layer_classifier_61_Vanilla_BP_color.jpg) | ![](images/layer_classifier_61_Vanilla_BP_negative_grad.jpg) | ![](images/layer_classifier_61_Vanilla_BP_positive_grad.jpg) | ![](images/layer_classifier_61_Vanilla_BP_Heatmap.png) | ![](images/layer_classifier_61_Vanilla_BP_On_Image.png) |
 
 ##### 3. Evaluation
+
+### DeconvNet
+
+DeconvNet được đề xuất bởi [Zeiler và Fergus (2014)](https://arxiv.org/abs/1409.1556), nó gần như tương đồng với Vanilla 
+Gradient. Mục tiêu của DeconvNet đó là đảo ngược mạng neuron và bài báo đề xuất các toán tử nhằm mục đích đảo ngược các 
+lớp lọc (filtering), lớp gộp (pooling) và các lớp kích hoạt (activation layers). Khi ta nhìn vào bài báo, nó sẽ trông rất 
+khác đối với Vanilla Gradient, nhưng ngoài sự đảo ngược của lớp ReLU, DeconvNet tương đương với cách tiếp cận Vanilla 
+Gradient. Vanilla Gradient có thể được xem là sự tổng quát của DeconvNet. DeconvNet đưa ra sự lựa chọn khác cho việc backpropagate 
+gradient qua lớp ReLU:
+
+```
+            R_n = R_n+1 * 1 (R_n+1 > 0) 
+```
+
+
+Với R_n và R_n+1 là đạo hàm của hàm loss cho các tham số trong từng lớp tương ứng và 1 là indicator function. Khi backpass 
+từ lớp n sang lớp n - 1, DeconvNet "ghi nhớ" những điểm activation nào trong lớp n đã được set bằng 0 ở giai đoạn forward pass  
+và set chúng bằng 0 tại lớp n-1. Activation với giá trị âm ở lớp n sẽ được set bằng 0 trong lớp n - 1. Trong ví dụ ở trên, 
+gradient tại lớp X_n đối với ví dụ ở trên sẽ là: 
+
+```
+|0.4        1.1|
+|0            0|
+```
+
+#### Implementation, Result and Evaluation
+
+##### 1. Implementation
+##### 2. Result
+
+
+##### 3. Evaluation
+
+
+### Grad-CAM
+
+Grad-CAM cung cấp cách thức để giải thích trực quan cho các quyết định của CNNs. Không giống như các phương pháp khác, 
+gradient không phải được backpropagated ngược trở lại input mà thường là đến lớp CNN cuối cùng để tạo ra một bản đồ làm 
+nổi bật các vùng quan trọng của hình ảnh.
+
+Grad-CAM là viết tắt của Gradient-weighted Class Activation Map. Như cái tên gọi của nó, nó dựa vào gradient của mạng. 
+Grad-CAM, cũng như các kỹ thuật khác gán mỗi một neuron một điểm số liên quan cho quyết định. Quyết định này có thể là 
+một dự đoán cho lớp (class) mà ta tìm thấy được trong lớp đầu ra, **nhưng về mặt lý thuyết có thể là bất kỳ lớp nào khác 
+trong mạng neuron.** Grad-CAM sao chép thông tin này vào lớp CNN cuối cùng. Grad-CAM có thể được sử dụng với các loại CNNs 
+khác nhau: với Fully-connected layers, captioning hoặc là multi-task output, và phục vụ cho việc học tăng cường. 
+
+Mục tiêu của Grad-CAM đó là hiểu được phần nào của ảnh mà một lớp Convolutional layer nhìn vào để đưa ra dự đoán cho một 
+lớp cụ thể mà ta đang xét đến. Lớp CNN đầu tiên lấy đầu vào là hình ảnh và đầu ra là bản đồ các tính năng mã hóa mà lớp 
+đó đã học được. Các lớp tích chập cao hơn cũng làm tương tự như vậy, nhưng lấy bản đồ tính năng cúa các lớp trước làm đầu 
+vào cho lớp đó. Để hiểu cách CNN đưa ra quyết định, Grad-CAM phân tích vùng nào được kích hoạt trong bản đồ tính năng của 
+các lớp tích chập cuối cùng. Giả sử ta có k feature maps trong lớp tích chập cuối cùng, ta gọi chúng lần lượt là A_1, A_2, ...
+, A_k. Làm thế nào để ta thấy được từ feature maps cách mà CNN đưa ra được quyết định. 
+
+Trong cách tiếp cận đầu tiên, ta đơn giản là visualize giá trị raw của mỗi một feature map, trung bình cộng chúng và sau 
+đó đè chúng lên trên ảnh ban đầu của chúng ta. Điều này có thể sẽ không mấy tốt đẹp, bởi vì feature map mã hóa thông tin 
+**cho tất cả các lớp**, nhưng chúng ta chỉ muốn một class thôi. Kết quả của ý tưởng này được minh họa bằng bảng kết quả 
+bên dưới. 
+
+| Ảnh gốc                             | Interested Class                          | Grad-CAM ý tưởng đơn giản                                               |
+|-------------------------------------|-------------------------------------------|-------------------------------------------------------------------------|
+| ![](images/cat_dog.png)             | Tibetan mastiff                           | ![](images/Grad-CAM_FirstApproach/cat_dog_Cam_On_Image.png)             |
+| ![](images/goldfinch.png)           | goldfinch, Carduelis carduelis            | ![](images/Grad-CAM_FirstApproach/goldfinch_Cam_On_Image.png)           | 
+| ![](images/hay2.jpeg)               | hay                                       | ![](images/Grad-CAM_FirstApproach/hay2_Cam_On_Image.png)                | 
+| ![](images/house_finch.png)         | house finch, linnet, Carpodacus mexicanus | ![](images/Grad-CAM_FirstApproach/house_finch_Cam_On_Image.png)         | 
+| ![](images/killer_whale.png)        | killer whale                              | ![](images/Grad-CAM_FirstApproach/killer_whale_Cam_On_Image.png)        | 
+| ![](images/rubber_eraser.png)       | rubber eraser                             | ![](images/Grad-CAM_FirstApproach/rubber_eraser_Cam_On_Image.png)       |
+| ![](images/snake.jpg)               | snake                                     | ![](images/Grad-CAM_FirstApproach/snake_Cam_On_Image.png)               |
+| ![](images/spider.png)              | spider                                    | ![](images/Grad-CAM_FirstApproach/spider_Cam_On_Image.png)              |
+| ![](images/layer_classifier_61.jpg) | goldfish, Carassius auratus               | ![](images/Grad-CAM_FirstApproach/layer_classifier_61_Cam_On_Image.png) |
+
+
+Chính vì lý do đó, công việc của Grad-CAM đó là quyết định mức độ quan trọng của từng k feature map đóng góp cho việc phân loại lớp c mà ta mong muốn quan sát. Ta cần phải gán trọng số 
+cho mỗi pixel trong mỗi một feature map với lại gradient trước khi ta lấy trung bình cộng theo channel của feature maps.
+Điều này sẽ mang lại cho ta một biểu đồ nhiệt highlight được các vùng mà có ảnh hưởng tích cực hoặc tiêu cực đến lớp phân
+loại mà ta đang muốn xem xét. Biểu đồ này được gửi vào thông qua hàm ReLU, là một cách để set toàn bộ những giá trị âm về
+0 , Grad-CAM loại bỏ những giá trị âm bằng cách sử dụng hàm ReLU, với lập luận rằng chúng ta chỉ quan tâm đến các phần đóng 
+góp vào lớp c được chọn chứ không quan tâm đến các phần khác. Chữ pixel có thể gây hiểu nhầm bởi vì feature map được tạo ra 
+là nhỏ hơn hình ảnh ban đầu (bởi vì các đơn vị pooling) nhưng được ánh xạ trở lại hình ảnh gốc. Sau đó ta scale Grad-CAM 
+về lại khoảng [0, 1] cho mục đích visualize và phủ nó lên hình ảnh ban đầu. 
+
+Công thức của Grad-CAM như sau: mục tiêu là tìm map L cho lớp c được định nghĩa như sau: 
+
+<img src="https://render.githubusercontent.com/render/math?math=L^c_{Grad-CAM} \in \mathbb{R}^{u\times v} = ReLU(\sum_{k}\alpha^c_kA^k)">
+
+Ở đây u là chiều rộng, v là chiều cao của Grad-CAM map và c là class mà ta muốn visualize. Các bước thực hiện như sau:
+
+1. Forward pass ảnh vào thông qua mạng CNN
+2. Lấy được score raw của lớp ta muốn visual (có nghĩa là score tại neuron đại diện cho class và ở lớp Pre-softmax)
+3. Đặt các giá trị còn lại về 0
+4. Thực hiện backpropagate từ lớp ưa thích đó đến trước lớp fully-connected layer: <img src="https://render.githubusercontent.com/render/math?math=\frac{\partial y^c}{\partial A^k}"> 
+5. Đánh trọng số các feature map "pixel" bằng gradient cho mỗi lớp. Chỉ số i, j bên dưới ký hiệu cho chiều rộng và chiều cao:
+
+<img src="https://render.githubusercontent.com/render/math?math=\alpha^c_k = \frac{1}{Z}\sum_i \sum_j \frac{\partial y^c}{\partial A^k_{ij}}">
+
+Điều này có nghĩa là gradient sẽ được tính trung bình cộng (Chia cho Z  = i*j)
+
+
+6. Tính toán giá trị trung bình cho feature maps, trọng số trên mỗi pixel theo gradient.
+7. Áp dụng ReLU vào average feature map
+8. Để thực hiện visualization: Scale giá trị vào trong ngưỡng từ 0-1. Upscale heatmap lên và overlay nó lên ảnh nguyên bản
+9. Bước tiến hành thêm đối với phương pháp Guided Grad-CAM: nhân heat map với guided backpropagation. 
+
+### Guided Grad-CAM
+
 
 
 ## References
