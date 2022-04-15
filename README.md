@@ -245,8 +245,7 @@ filter = 1
 Để kiểm tra tính đúng đắn cho quá trình Optimization, ta thử feed ảnh được Optimized sẵn cho mỗi class của VGG19 ở trên 
 vào trong script ```main.py``` của thư mục ```CheckingModelPrediction```:
 
-Đối với class: umbrela
-Ta feed vào model ảnh: 
+Đối với class: umbrela , ta feed vào model ảnh: 
 ![](./images/layer_classifier_6879.jpg)
 ```python
 Prediction of VGG model 
@@ -254,8 +253,7 @@ Class: umbrella
 Percentage: 99.99665069580078
 ```
 
-Đối với class: goldFish 
-Ta feed vào model ảnh:
+Đối với class: goldFish, ta feed vào model ảnh:
 ![](./images/layer_classifier_61.jpg)
 ```python 
 Prediction of VGG model 
@@ -319,7 +317,7 @@ Nói cách khác, ta có ảnh đầu vào I và mạng neuron tạo ra Score S_
 áp dụng vào hình .ảnh Ý tưởng đằng sau việc sử dụng gradient đó là ta có thể xấp xỉ điểm số đó bằng cách sử dụng khai 
 triển Taylor bậc 1: 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://render.githubusercontent.com/render/math?math=S_c(I) \approx w^T I + b">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://render.githubusercontent.com/render/math?math=S_c(I) \approx w^T I plus b">
 
 Với w là đạo hàm của điểm: 
 
@@ -358,6 +356,45 @@ Thì gradients của ta tại X_n là:
 |0.4    0|
 |0      0|
 ```
+
+#### Vấn đề của Vanilla Gradient
+Vanilla Gradient bị vấn đề đó là việc bão hòa, được đề cập bởi [Avanti et al. 2017](https://arxiv.org/abs/1704.02685). Khi 
+sử dụng ReLU, và khi activation xuống dưới ngưỡng 0, thì activation sẽ bị giới hạn ở 0 và không thay đổi nữa. Việc activation 
+sẽ bị bão hòa. Ví dụ: Đầu vào của một layer là 2 neuron với trọng số kết nối cho từng cái là -1 và -1 và một bias là 1.
+
+Hàm kích hoạt sẽ là neuron1 + neuron2 (a + b) nếu như tổng của 2 neuron là < 1 (tức là khi -a-b+1>0 <=> a+b<1 thì activation
+sẽ là -a-b+1). Ngược lại nếu tổng của 2 neuron mà lớn hơn 1 thì activation sẽ luôn bị bão hòa tại activation của 1. Và gradient tại 
+điểm này cũng sẽ về 0, và theo Vanilla Gradient thì neuron này sẽ không quan trọng. 
+
+```
+Output của neuron đó là: 
+output = a * (-1) + b * (-1) + 1 
+
+Thông qua ReLU: max(0, output)
+```
+
+
+#### Implementation, Result and Evaluation
+
+##### 1. Implementation
+##### 2. Result
+
+Kết quả thu được khi áp dụng Vanilla Gradient đối với VGG19
+
+| Ảnh gốc                             | Colored Gradient                                     | Negative Gradient                                            | Positive Gradient                                            | Heat Map                                               | Image overlay heat map                                  | 
+|-------------------------------------|------------------------------------------------------|--------------------------------------------------------------|--------------------------------------------------------------|--------------------------------------------------------|---------------------------------------------------------|
+| ![](images/cat_dog.png)             | ![](images/cat_dog_Vanilla_BP_color.jpg)             | ![](images/cat_dog_Vanilla_BP_negative_grad.jpg)             | ![](images/cat_dog_Vanilla_BP_positive_grad.jpg)             | ![](images/cat_dog_Vanilla_BP_Heatmap.png)             | ![](images/cat_dog_Vanilla_BP_On_Image.png)             |
+| ![](images/goldfinch.png)           | ![](images/goldfinch_Vanilla_BP_color.jpg)           | ![](images/goldfinch_Vanilla_BP_negative_grad.jpg)           | ![](images/goldfinch_Vanilla_BP_positive_grad.jpg)           | ![](images/goldfinch_Vanilla_BP_Heatmap.png)           | ![](images/goldfinch_Vanilla_BP_On_Image.png)           |
+| ![](images/hay2.jpeg)               | ![](images/hay2_Vanilla_BP_color.jpg)                | ![](images/hay2_Vanilla_BP_negative_grad.jpg)                | ![](images/hay2_Vanilla_BP_positive_grad.jpg)                | ![](images/hay2_Vanilla_BP_Heatmap.png)                | ![](images/hay2_Vanilla_BP_On_Image.png)                |
+| ![](images/house_finch.png)         | ![](images/house_finch_Vanilla_BP_color.jpg)         | ![](images/house_finch_Vanilla_BP_negative_grad.jpg)         | ![](images/house_finch_Vanilla_BP_positive_grad.jpg)         | ![](images/house_finch_Vanilla_BP_Heatmap.png)         | ![](images/house_finch_Vanilla_BP_On_Image.png)         |
+| ![](images/killer_whale.png)        | ![](images/killer_whale_Vanilla_BP_color.jpg)        | ![](images/killer_whale_Vanilla_BP_negative_grad.jpg)        | ![](images/killer_whale_Vanilla_BP_positive_grad.jpg)        | ![](images/killer_whale_Vanilla_BP_Heatmap.png)        | ![](images/killer_whale_Vanilla_BP_On_Image.png)        |
+| ![](images/rubber_eraser.png)       | ![](images/rubber_eraser_Vanilla_BP_color.jpg)       | ![](images/rubber_eraser_Vanilla_BP_negative_grad.jpg)       | ![](images/rubber_eraser_Vanilla_BP_positive_grad.jpg)       | ![](images/rubber_eraser_Vanilla_BP_Heatmap.png)       | ![](images/rubber_eraser_Vanilla_BP_On_Image.png)       |
+| ![](images/snake.jpg)               | ![](images/snake_Vanilla_BP_color.jpg)               | ![](images/snake_Vanilla_BP_negative_grad.jpg)               | ![](images/snake_Vanilla_BP_positive_grad.jpg)               | ![](images/snake_Vanilla_BP_Heatmap.png)               | ![](images/snake_Vanilla_BP_On_Image.png)               |
+| ![](images/spider.png)              | ![](images/spider_Vanilla_BP_color.jpg)              | ![](images/spider_Vanilla_BP_negative_grad.jpg)              | ![](images/spider_Vanilla_BP_positive_grad.jpg)              | ![](images/spider_Vanilla_BP_Heatmap.png)              | ![](images/spider_Vanilla_BP_On_Image.png)              |
+| ![](images/layer_classifier_61.jpg) | ![](images/layer_classifier_61_Vanilla_BP_color.jpg) | ![](images/layer_classifier_61_Vanilla_BP_negative_grad.jpg) | ![](images/layer_classifier_61_Vanilla_BP_positive_grad.jpg) | ![](images/layer_classifier_61_Vanilla_BP_Heatmap.png) | ![](images/layer_classifier_61_Vanilla_BP_On_Image.png) |
+
+##### 3. Evaluation
+
 
 ## References
 [1] [Feature Visualization Implementation using FastAI](https://towardsdatascience.com/how-to-visualize-convolutional-features-in-40-lines-of-code-70b7d87b0030)
