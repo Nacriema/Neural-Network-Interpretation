@@ -453,20 +453,9 @@ các lớp tích chập cuối cùng. Giả sử ta có k feature maps trong l�
 
 Trong cách tiếp cận đầu tiên, ta đơn giản là visualize giá trị raw của mỗi một feature map, trung bình cộng chúng và sau 
 đó đè chúng lên trên ảnh ban đầu của chúng ta. Điều này có thể sẽ không mấy tốt đẹp, bởi vì feature map mã hóa thông tin 
-**cho tất cả các lớp**, nhưng chúng ta chỉ muốn một class thôi. Kết quả của ý tưởng này được minh họa bằng bảng kết quả 
-bên dưới. 
+**cho tất cả các lớp**, nhưng chúng ta chỉ muốn một class thôi. Kết quả của ý tưởng này được minh họa bằng bảng kết quả trong 
+phần **Result**
 
-| Ảnh gốc                             | Interested Class                          | Grad-CAM ý tưởng đơn giản                                               |
-|-------------------------------------|-------------------------------------------|-------------------------------------------------------------------------|
-| ![](images/cat_dog.png)             | Tibetan mastiff                           | ![](images/Grad-CAM_FirstApproach/cat_dog_Cam_On_Image.png)             |
-| ![](images/goldfinch.png)           | goldfinch, Carduelis carduelis            | ![](images/Grad-CAM_FirstApproach/goldfinch_Cam_On_Image.png)           | 
-| ![](images/hay2.jpeg)               | hay                                       | ![](images/Grad-CAM_FirstApproach/hay2_Cam_On_Image.png)                | 
-| ![](images/house_finch.png)         | house finch, linnet, Carpodacus mexicanus | ![](images/Grad-CAM_FirstApproach/house_finch_Cam_On_Image.png)         | 
-| ![](images/killer_whale.png)        | killer whale                              | ![](images/Grad-CAM_FirstApproach/killer_whale_Cam_On_Image.png)        | 
-| ![](images/rubber_eraser.png)       | rubber eraser                             | ![](images/Grad-CAM_FirstApproach/rubber_eraser_Cam_On_Image.png)       |
-| ![](images/snake.jpg)               | snake                                     | ![](images/Grad-CAM_FirstApproach/snake_Cam_On_Image.png)               |
-| ![](images/spider.png)              | spider                                    | ![](images/Grad-CAM_FirstApproach/spider_Cam_On_Image.png)              |
-| ![](images/layer_classifier_61.jpg) | goldfish, Carassius auratus               | ![](images/Grad-CAM_FirstApproach/layer_classifier_61_Cam_On_Image.png) |
 
 
 Chính vì lý do đó, công việc của Grad-CAM đó là quyết định mức độ quan trọng của từng k feature map đóng góp cho việc phân loại lớp c mà ta mong muốn quan sát. Ta cần phải gán trọng số 
@@ -499,6 +488,27 @@ Công thức của Grad-CAM như sau: mục tiêu là tìm map L cho lớp c đ�
 7. Áp dụng ReLU vào average feature map
 8. Để thực hiện visualization: Scale giá trị vào trong ngưỡng từ 0-1. Upscale heatmap lên và overlay nó lên ảnh nguyên bản
 9. Bước tiến hành thêm đối với phương pháp Guided Grad-CAM: nhân heat map với guided backpropagation. 
+
+#### Implementation, Result and Evaluation
+
+##### 1. Implementation
+##### 2. Result
+
+| Ảnh gốc                             | Interested Class                          | Grad-CAM ý tưởng đơn giản                                               | Grad-CAM chuẩn                                            |
+|-------------------------------------|-------------------------------------------|-------------------------------------------------------------------------|-----------------------------------------------------------|
+| ![](images/cat_dog.png)             | Tibetan mastiff                           | ![](images/Grad-CAM_FirstApproach/cat_dog_Cam_On_Image.png)             | ![](images/Grad-CAM/cat_dog_Cam_On_Image.png)             |
+| ![](images/goldfinch.png)           | goldfinch, Carduelis carduelis            | ![](images/Grad-CAM_FirstApproach/goldfinch_Cam_On_Image.png)           | ![](images/Grad-CAM/goldfinch_Cam_On_Image.png)           |
+| ![](images/hay2.jpeg)               | hay                                       | ![](images/Grad-CAM_FirstApproach/hay2_Cam_On_Image.png)                | ![](images/Grad-CAM/hay2_Cam_On_Image.png)                |
+| ![](images/house_finch.png)         | house finch, linnet, Carpodacus mexicanus | ![](images/Grad-CAM_FirstApproach/house_finch_Cam_On_Image.png)         | ![](images/Grad-CAM/house_finch_Cam_On_Image.png)         |
+| ![](images/killer_whale.png)        | killer whale                              | ![](images/Grad-CAM_FirstApproach/killer_whale_Cam_On_Image.png)        | ![](images/Grad-CAM/killer_whale_Cam_On_Image.png)        |
+| ![](images/rubber_eraser.png)       | rubber eraser                             | ![](images/Grad-CAM_FirstApproach/rubber_eraser_Cam_On_Image.png)       | ![](images/Grad-CAM/rubber_eraser_Cam_On_Image.png)       |
+| ![](images/snake.jpg)               | snake                                     | ![](images/Grad-CAM_FirstApproach/snake_Cam_On_Image.png)               | ![](images/Grad-CAM/snake_Cam_On_Image.png)               |
+| ![](images/spider.png)              | spider                                    | ![](images/Grad-CAM_FirstApproach/spider_Cam_On_Image.png)              | ![](images/Grad-CAM/spider_Cam_On_Image.png)              |
+| ![](images/layer_classifier_61.jpg) | goldfish, Carassius auratus               | ![](images/Grad-CAM_FirstApproach/layer_classifier_61_Cam_On_Image.png) | ![](images/Grad-CAM/layer_classifier_61_Cam_On_Image.png) |
+
+
+##### 3. Evaluation
+
 
 ### Guided Grad-CAM
 
