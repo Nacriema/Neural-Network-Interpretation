@@ -16,6 +16,7 @@ Các kỹ thuật được áp dụng như sau:
   * [DeconvNet](#deconvnet)
   * [Grad-CAM](#grad-cam)
   * [Guided Grad-CAM](#guided-grad-cam)
+  * [SmoothGrad](#smoothgrad)
 * [Concepts](): Những concept trừu tượng nào mà Neural Net đã học ? 
 * [Adversarial Examples](): Làm cách nào ta có thể đánh lừa được Neural Network
 * [Influential Instances](): ???
@@ -467,7 +468,7 @@ góp vào lớp c được chọn chứ không quan tâm đến các phần khá
 là nhỏ hơn hình ảnh ban đầu (bởi vì các đơn vị pooling) nhưng được ánh xạ trở lại hình ảnh gốc. Sau đó ta scale Grad-CAM 
 về lại khoảng [0, 1] cho mục đích visualize và phủ nó lên hình ảnh ban đầu. 
 
-Công thức của Grad-CAM như sau: mục tiêu là tìm map L cho lớp c được định nghĩa như sau: 
+Công thức của **Grad-CAM** như sau: mục tiêu là tìm map L cho lớp c được định nghĩa như sau: 
 
 <img src="https://render.githubusercontent.com/render/math?math=L^c_{Grad-CAM} \in \mathbb{R}^{u\times v} = ReLU(\sum_{k}\alpha^c_kA^k)">
 
@@ -512,6 +513,40 @@ Công thức của Grad-CAM như sau: mục tiêu là tìm map L cho lớp c đ�
 
 ### Guided Grad-CAM
 
+Từ nội dung thuật toán của Grad-CAM, ta có thể thấy rằng heat map cho ra sẽ thô (bởi vì feature map thu được ỏ những lớp
+cuối cùng của CNN thì kích thước ảnh sẽ nhỏ đi rất nhiều so với kích thước ảnh ban đầu, và ta phải resize heat map lên 
+cho vừa với lại ảnh đầu vào). Ở chiều hướng ngược lại, các kỹ thuật khác sử dụng Gradient được lan truyền ngược đến các 
+pixel ảnh đầu vào. Điều này tạo ra hình ảnh có độ chi tiết cao hơn nhiều và có thể hiển thị cho ta được các cạnh hoặc 
+các điểm riêng lẻ nào đóng góp nhiều nhất vào dự đoán. Sự kết hợp của cả hai phương pháp được gọi là **Guided Grad-CAM**.
+Việc tạo ra nó đơn giản. Ta tính toán cho cả Grad-CAM và kết hợp thêm sự giải thích từ một phương pháp khác, chẳng hạn 
+như là Vanilla Gradient. Đầu ra của Grad-CAM sau đó sẽ được Upsample bởi **Bilinear Interpolation**, sau đó cả hai map 
+này sẽ được nhân lại với nhau theo kiểu **element-wise**. Grad-CAM sẽ hoạt động giống như một công cụ tập trung vào các 
+phần cụ thể của bản đồ phân bổ theo pixel.
+
+#### Implementation, Result and Evaluation
+
+##### 1. Implementation
+##### 2. Result
+
+| Ảnh gốc                             | Interested Class                          | Guided Grad-CAM   (Vanilla + GradCAM)                            | 
+|-------------------------------------|-------------------------------------------|------------------------------------------------------------------|
+| ![](images/cat_dog.png)             | Tibetan mastiff                           | ![](images/Guided_Grad-CAM/cat_dog_Cam_On_Image.png)             |
+| ![](images/goldfinch.png)           | goldfinch, Carduelis carduelis            | ![](images/Guided_Grad-CAM/goldfinch_Cam_On_Image.png)           | 
+| ![](images/hay2.jpeg)               | hay                                       | ![](images/Guided_Grad-CAM/hay2_Cam_On_Image.png)                | 
+| ![](images/house_finch.png)         | house finch, linnet, Carpodacus mexicanus | ![](images/Guided_Grad-CAM/house_finch_Cam_On_Image.png)         | 
+| ![](images/killer_whale.png)        | killer whale                              | ![](images/Guided_Grad-CAM/killer_whale_Cam_On_Image.png)        | 
+| ![](images/rubber_eraser.png)       | rubber eraser                             | ![](images/Guided_Grad-CAM/rubber_eraser_Cam_On_Image.png)       | 
+| ![](images/snake.jpg)               | snake                                     | ![](images/Guided_Grad-CAM/snake_Cam_On_Image.png)               | 
+| ![](images/spider.png)              | spider                                    | ![](images/Guided_Grad-CAM/spider_Cam_On_Image.png)              | 
+| ![](images/layer_classifier_61.jpg) | goldfish, Carassius auratus               | ![](images/Guided_Grad-CAM/layer_classifier_61_Cam_On_Image.png) | 
+
+##### 3. Evaluation
+
+### SmoothGrad
+
+Ý tưởng của SmoothGrad được đề xuất bởi [Smilkov et al](https://arxiv.org/abs/1706.03825) nhằm mục đích giảm nhiễu cho
+các phương pháp dựa vào gradient-base bằng cách thêm nhiễu và tính trung bình trên các gradient giả này. SmoothGrad không
+phải là một phương pháp độc lập, nhưng nó có thể được áp dụng 
 
 
 ## References
