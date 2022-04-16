@@ -546,7 +546,40 @@ phần cụ thể của bản đồ phân bổ theo pixel.
 
 Ý tưởng của SmoothGrad được đề xuất bởi [Smilkov et al](https://arxiv.org/abs/1706.03825) nhằm mục đích giảm nhiễu cho
 các phương pháp dựa vào gradient-base bằng cách thêm nhiễu và tính trung bình trên các gradient giả này. SmoothGrad không
-phải là một phương pháp độc lập, nhưng nó có thể được áp dụng 
+phải là một phương pháp độc lập, nhưng nó có thể được áp dụng như là bộ mở rộng của các phương pháp dựa vào gradient. 
+
+Luồng thực hiện của **SmoothGrad** như sau:
+* Tạo ra nhiều version khác nhau của bức ảnh bằng cách thêm nhiễu vào nó.
+* Tạo pixel attribution maps cho toàn bộ những ảnh đó
+* Trung bình cộng toàn bộ các pixel attribution maps đó
+
+Ý tưởng để thực hiện là đơn giản. Tại sao việc này lại hữu ích? Lý thuyết là đạo hàm dao động rất lớn ở quy mô nhỏ. Mạng 
+neuron không có động lực trong quá trình huấn luyện để giữ cho gradient mượt, mục tiêu của chúng là phân loại hình ảnh 
+một cách chính xác. Việc tính trung bình trên nhiều bản thể sẽ "giải quyết" được những biến động này.
+
+<img src="https://render.githubusercontent.com/render/math?math=R_{sg}(x) = \frac{1}{N}\sum_{i=1}^{n}R(x + g_i)">
+
+Với g_i là noise vector với chuẩn Gaussian distribution. Mức độ noise thích hợp sẽ phụ thuộc vào hình ảnh đầu vào và kiến trúc 
+mạng. Tác giả đề xuất mức độ nhiễu ở mức 10%-20%, điều đó có nghĩa là ```sigma/(x_max - x_min)``` nên nằm trong khoảng 0.1 
+và 0.2. Cận x_min và x_max có nghĩa là minimum và maximum pixel values của tấm ảnh. Tham số còn lại là số lượng mẫu được
+tạo ra (n), giá trị này được đề xuất sử dụng là 50.
+
+#### Implementation, Result and Evaluation
+
+##### 1. Implementation
+##### 2. Result
+
+| Ảnh gốc                   | sigma = a / (x_min - x_max) | SmoothGrad                                                   | 
+|---------------------------|-----------------------------|--------------------------------------------------------------|
+| ![](images/goldfinch.png) | a = 0                       | ![](images/goldfinch_Vanilla_BP_Heatmap.png)                 | 
+| ![](images/goldfinch.png) | a = 1                       | ![](images/SmoothGrad/Goldfinch/1/goldfinch_Cam_Heatmap.png) | 
+| ![](images/goldfinch.png) | a = 2                       | ![](images/SmoothGrad/Goldfinch/2/goldfinch_Cam_Heatmap.png) | 
+| ![](images/goldfinch.png) | a = 3                       | ![](images/SmoothGrad/Goldfinch/3/goldfinch_Cam_Heatmap.png) | 
+| ![](images/goldfinch.png) | a = 4                       | ![](images/SmoothGrad/Goldfinch/4/goldfinch_Cam_Heatmap.png) | 
+| ![](images/goldfinch.png) | a = 5                       | ![](images/SmoothGrad/Goldfinch/5/goldfinch_Cam_Heatmap.png) | 
+ 
+
+##### 3. Evaluation 
 
 
 ## References
