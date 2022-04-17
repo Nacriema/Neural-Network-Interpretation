@@ -582,6 +582,56 @@ tạo ra (n), giá trị này được đề xuất sử dụng là 50.
 
 ##### 3. Evaluation 
 
+### Though
+
+Một vấn đề lớn cho tất cả những phương pháp này đó là ta không có xác định được **ground truth** cho các giải thích này. 
+Chúng ta chỉ mới ở trong bước đầu loại bỏ những giải thích mà rõ ràng là không có ý nghĩa (và ngay cả trong bước này, ta
+cũng không có được sự khẳng định mạnh mẽ, quá trình đưa ra dự đoán trong mạng neuron là rất phức tạp !!!)
+
+
+### Advantages 
+
+Sự giải thích bằng những phương pháp này là trực quan và ta có thể nhanh chóng nhận ra hình ảnh. Đặc biệt, khi các phương 
+pháp chi làm nổi bật các điểm ảnh quan trọng, ta có thể dễ dàng nhận ra ngay các vùng quan trọng của ảnh. 
+
+Các phương pháp dựa trên Gradient thường tính toán nhanh hơn các phương pháp bất khả tri theo mô hình. Ví dụ: LIME và SHAP 
+cũng có thể giải thích cho sự phân loại hình ảnh của mạng neuron, nhưng quá trình tính toán thì mất rất nhiều tài nguyên. 
+
+Ta có nhiều phương pháp visual để mà lựa chọn
+
+### Disadvantages 
+
+Với hầu hết các phương pháp giải thích, rất khó để biết liệu nó có đúng hay không và phần lớn trong quá trình đánh gía 
+chỉ mang tính chất định tính ("Những giải thích này có vẻ đúng, hãy xuất bản bài báo" mà chưa có cách để đánh giá bằng 
+số liệu cho những phương pháp giải thích như trên)
+
+Các phương pháp liên quan đến **Pixel Attribution** có thể rất dễ bị phá vỡ. [Ghorbani et al.](https://arxiv.org/pdf/1710.10547.pdf) 
+chỉ ra rằng việc đưa ra những nhiễu loạn nhỏ (adversarial) đối với một hình ảnh vẫn dẫn đến cùng một dự đoán, nhưng **saliency map** 
+được tạo ra để chứng minh cho dự đoán là rất khác nhau !!!
+
+[Kinderman et al.](https://arxiv.org/pdf/1711.00867.pdf) cũng chứng minh được các phương pháp dựa vào **pixel attribution** 
+là không đáng tin cậy. Họ thêm một lượng shift constant vào ảnh input, có nghĩa là thêm một lượng thay đổi bằng nhau vào
+toàn bộ pixel ảnh. Họ so sánh hai mạng networks, mạng network đầu tiên và phiên bản "shifted" của nó (toàn bộ bias của 
+lớp đầu tiên được thay đổi để có thể adapt được đối với lại constant pixel shift). Cả hai mạng networks đều cho ra dự 
+đoán như nhau. Hơn nữa, gradient là tương đương nhau đối với cả hai mạng này. Nhưng **Saliency Map** lại khác nhau, đó 
+là một tính chất rất không mong đợi. Họ tested với các phương pháp visual: **DeepLift**, **Vanilla Gradient** và **Integrated Gradient**
+
+Bài báo [Sanity checks for saliency maps](https://arxiv.org/pdf/1810.03292.pdf) nghiên cứu xem các phương pháp **Saliency**
+có insensitive đối với mô hình hay dữ liệu hay không. Sự vô cảm (insensitivity) là điều rất không mong muốn, bởi vì nó có nghĩa 
+là sự giải thích không liên quan đến mô hình và dữ liệu. Các phương pháp mà insensitive với mô hình và dữ liệu training tương tự như 
+những bộ edge detectors vậy. Bộ phát hiện cạnh chỉ đơn giản là làm nổi bật những màu sắc pixel mạnh trong hình ảnh và không 
+liên quan đến mô hình dự đoán hoặc các tính năng trừu tượng của hình ảnh và không cần quá trình huấn luyện. Các phương pháp 
+**Pixel attributions** được thử nghiệm là **Vanilla Gradient**, **Gradient x Input**, **Integrated Gradients**, **Guided Backpropagation**, 
+**Guided Grad-CAM** và **SmoothGrad + Vanilla Gradient**. Vanilla Gradient và Grad-CAM đã vượt qua bài kiểm tra độ nhạy, trong 
+khi Guided Backpropagation và Guided Grad-CAM thì lại không vượt qua. Tuy nhiên, bản thân tờ báo đã nhận một số lời chỉ trích 
+từ [Tomsett et al.](https://arxiv.org/pdf/1912.01451.pdf). Họ nhận thấy rằng có sự thiếu nhất quán đối với các chỉ số đánh 
+giá, vì vậy chúng ta trở lại nơi chúng ta bắt đầu ... Vẫn còn tồn đọng việc khó khăn để đánh giá các phương pháp **visual explanations** này.
+
+Nói chung đây là một trạng thái rât không hài lòng. Chúng ta phải chờ đợi các nghiên cứu thêm về chủ đề này. Và đừng phát minh ra thêm bất kỳ phương pháp 
+**Saliency** nào nữa mà hãy tập trung vào câu hỏi **"Làm thế nào để đánh giá chúng ?!!"**
+
+
+### Disadvantages
 
 ## References
 [1] [Feature Visualization Implementation using FastAI](https://towardsdatascience.com/how-to-visualize-convolutional-features-in-40-lines-of-code-70b7d87b0030)
