@@ -569,15 +569,16 @@ tạo ra (n), giá trị này được đề xuất sử dụng là 50.
 ##### 1. Implementation
 ##### 2. Result
 
-| Ảnh gốc                            | sigma = a / (x_min - x_max) | Vanilla Grad + SmoothGrad                          | 
-|------------------------------------|-----------------------------|----------------------------------------------------|
-| ![](images/Input/goldfinch.png)    | a = 0...5                   | ![](images/SmoothGrad/Goldfinch/goldfinch.gif)     | 
-| ![](images/Input/snake.jpg)        | a = 0...5                   | ![](images/SmoothGrad/Snake/snake.gif)             | 
-| ![](images/Input/cat_dog.png)      | a = 0...5                   | ![](images/SmoothGrad/Dog/Dog.gif)                 | 
-| ![](images/Input/spider.png)       | a = 0...5                   | ![](images/SmoothGrad/Spider/spider.gif)           | 
-| ![](images/Input/hay2.jpeg)        | a = 0...5                   | ![](images/SmoothGrad/Hay/hay.gif)                 | 
-| ![](images/Input/house_finch.png)  | a = 0...5                   | ![](images/SmoothGrad/Housefinch/housefinch.gif)   | 
-| ![](images/Input/killer_whale.png) | a = 0...5                   | ![](images/SmoothGrad/Killerwhale/killerwhale.gif) | 
+| Ảnh gốc                             | sigma = a / (x_min - x_max) | Vanilla Grad + SmoothGrad                            | 
+|-------------------------------------|-----------------------------|------------------------------------------------------|
+| ![](images/Input/goldfinch.png)     | a = 0...5                   | ![](images/SmoothGrad/Goldfinch/goldfinch.gif)       | 
+| ![](images/Input/snake.jpg)         | a = 0...5                   | ![](images/SmoothGrad/Snake/snake.gif)               | 
+| ![](images/Input/cat_dog.png)       | a = 0...5                   | ![](images/SmoothGrad/Dog/Dog.gif)                   | 
+| ![](images/Input/spider.png)        | a = 0...5                   | ![](images/SmoothGrad/Spider/spider.gif)             | 
+| ![](images/Input/hay2.jpeg)         | a = 0...5                   | ![](images/SmoothGrad/Hay/hay.gif)                   | 
+| ![](images/Input/house_finch.png)   | a = 0...5                   | ![](images/SmoothGrad/Housefinch/housefinch.gif)     | 
+| ![](images/Input/killer_whale.png)  | a = 0...5                   | ![](images/SmoothGrad/Killerwhale/killerwhale.gif)   | 
+| ![](images/Input/rubber_eraser.png) | a = 0...5                   | ![](images/SmoothGrad/Rubbereraser/rubbereraser.gif) | 
  
 
 ##### 3. Evaluation 
