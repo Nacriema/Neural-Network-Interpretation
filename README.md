@@ -184,66 +184,66 @@ filter = 1
 
 Ở đây mình sử dụng model VGG16 để visualize, cách gọi đơn vị phụ thuộc vào cái mô hình model trong Pytorch
 
-| Đơn vị         | Ảnh Feature tại đó                  |
-|----------------|-------------------------------------|
-| Layer(0)[63]   | ![](images/layer_0_filter_63.jpg)   |
-| Layer(12)[3]   | ![](images/layer_12_filter_3.jpg)   |
-| Layer(12)[105] | ![](images/layer_12_filter_105.jpg) |
-| Layer(12)[181] | ![](images/layer_12_filter_181.jpg) |
-| Layer(12)[231] | ![](images/layer_12_filter_231.jpg) |
-| Layer(14)[181] | ![](images/layer_14_filter_181.jpg) |
-| Layer(19)[54]  | ![](images/layer_19_filter_54.jpg)  |
-| Layer(21)[54]  | ![](images/layer_21_filter_54.jpg)  |
-| Layer(24)[54]  | ![](images/layer_24_filter_54.jpg)  |
-| Layer(26)[1]   | ![](images/layer_26_filter_1.jpg)   |
-| Layer(26)[54]  | ![](images/layer_26_filter_54.jpg)  |
-| Layer(26)[200] | ![](images/layer_26_filter_200.jpg) |
-| Layer(28)[54]  | ![](images/layer_28_filter_54.jpg)  |
-| Layer(28)[264] | ![](images/layer_28_filter_264.jpg) |
-| Layer(28)[265] | ![](images/layer_28_filter_265.jpg) |
-| Layer(28)[266] | ![](images/layer_28_filter_266.jpg) |
-| Layer(28)[462] | ![](images/layer_28_filter_462.jpg) |
+| Đơn vị         | Ảnh Feature tại đó                           |
+|----------------|----------------------------------------------|
+| Layer(0)[63]   | ![](images/Features/layer_0_filter_63.jpg)   |
+| Layer(12)[3]   | ![](images/Features/layer_12_filter_3.jpg)   |
+| Layer(12)[105] | ![](images/Features/layer_12_filter_105.jpg) |
+| Layer(12)[181] | ![](images/Features/layer_12_filter_181.jpg) |
+| Layer(12)[231] | ![](images/Features/layer_12_filter_231.jpg) |
+| Layer(14)[181] | ![](images/Features/layer_14_filter_181.jpg) |
+| Layer(19)[54]  | ![](images/Features/layer_19_filter_54.jpg)  |
+| Layer(21)[54]  | ![](images/Features/layer_21_filter_54.jpg)  |
+| Layer(24)[54]  | ![](images/Features/layer_24_filter_54.jpg)  |
+| Layer(26)[1]   | ![](images/Features/layer_26_filter_1.jpg)   |
+| Layer(26)[54]  | ![](images/Features/layer_26_filter_54.jpg)  |
+| Layer(26)[200] | ![](images/Features/layer_26_filter_200.jpg) |
+| Layer(28)[54]  | ![](images/Features/layer_28_filter_54.jpg)  |
+| Layer(28)[264] | ![](images/Features/layer_28_filter_264.jpg) |
+| Layer(28)[265] | ![](images/Features/layer_28_filter_265.jpg) |
+| Layer(28)[266] | ![](images/Features/layer_28_filter_266.jpg) |
+| Layer(28)[462] | ![](images/Features/layer_28_filter_462.jpg) |
 
 ##### 3.2. Class Logits objective (Class Logits as Unit)
 
 Ở đây mình sử dụng model VGG19 để visualize: (Cái này để sau mình đẩy ảnh lên, mất tiêu cmnr)
 
-| Đơn vị                 | Class trong ImageNet                                                           | Ảnh Feature tại đây                   |
-|------------------------|--------------------------------------------------------------------------------|---------------------------------------|
-| Layer(classifier)[1]   | goldfish, Carassius auratus                                                    | ![](images/layer_classifier_61.jpg)   |
-| Layer(classifier)[3]   | tiger shark, Galeocerdo cuvieri                                                | ![](images/layer_classifier_63.jpg)   |
-| Layer(classifier)[7]   | cock                                                                           | ![](images/layer_classifier_67.jpg)   |
-| Layer(classifier)[30]  | bullfrog, Rana catesbeiana                                                     | ![](images/layer_classifier_630.jpg)  |
-| Layer(classifier)[37]  | box turtle, box tortoise                                                       | ![](images/layer_classifier_637.jpg)  |
-| Layer(classifier)[48]  | Komodo dragon, Komodo lizard, dragon lizard, giant lizard, Varanus komodoensis | ![](images/layer_classifier_648.jpg)  |
-| Layer(classifier)[49]  | African crocodile, Nile crocodile, Crocodylus niloticus                        | ![](images/layer_classifier_649.jpg)  |
-| Layer(classifier)[71]  | scorpion                                                                       | ![](images/layer_classifier_671.jpg)  |
-| Layer(classifier)[76]  | tarantula                                                                      | ![](images/layer_classifier_676.jpg)  |
-| Layer(classifier)[79]  | centipede                                                                      | ![](images/layer_classifier_679.jpg)  |
-| Layer(classifier)[92]  | bee eater                                                                      | ![](images/layer_classifier_692.jpg)  |
-| Layer(classifier)[99]  | goose                                                                          | ![](images/layer_classifier_699.jpg)  |
-| Layer(classifier)[105] | koala, koala bear, kangaroo bear, native bear, Phascolarctos cinereus          | ![](images/layer_classifier_6105.jpg) |
-| Layer(classifier)[107] | jellyfish                                                                      | ![](images/layer_classifier_6107.jpg) |
-| Layer(classifier)[285] | Egyptian cat                                                                   | ![](images/layer_classifier_6285.jpg) |
-| Layer(classifier)[301] | ladybug, ladybeetle, lady beetle, ladybird, ladybird beetle                    | ![](images/layer_classifier_6301.jpg) |
-| Layer(classifier)[309] | bee                                                                            | ![](images/layer_classifier_6309.jpg) |
-| Layer(classifier)[316] | cicada, cicala                                                                 | ![](images/layer_classifier_6316.jpg) |
-| Layer(classifier)[403] | aircraft carrier, carrier, flattop, attack aircraft carrier                    | ![](images/layer_classifier_6403.jpg) |
-| Layer(classifier)[417] | balloon                                                                        | ![](images/layer_classifier_6417.jpg) |
-| Layer(classifier)[445] | bikini, two-piece                                                              | ![](images/layer_classifier_6445.jpg) |
-| Layer(classifier)[485] | CD player                                                                      | ![](images/layer_classifier_6485.jpg) |
-| Layer(classifier)[488] | chain                                                                          | ![](images/layer_classifier_6488.jpg) |
-| Layer(classifier)[492] | chest                                                                          | ![](images/layer_classifier_6492.jpg) |
-| Layer(classifier)[508] | computer keyboard, keypad                                                      | ![](images/layer_classifier_6508.jpg) |
-| Layer(classifier)[531] | digital watch                                                                  | ![](images/layer_classifier_6531.jpg) |
-| Layer(classifier)[562] | fountain                                                                       | ![](images/layer_classifier_6562.jpg) |
-| Layer(classifier)[605] | iPod                                                                           | ![](images/layer_classifier_6605.jpg) |
-| Layer(classifier)[629] | lipstick, lip rouge                                                            | ![](images/layer_classifier_6629.jpg) |
-| Layer(classifier)[657] | missile                                                                        | ![](images/layer_classifier_6657.jpg) |
-| Layer(classifier)[805] | soccer ball                                                                    | ![](images/layer_classifier_6805.jpg) |
-| Layer(classifier)[879] | umbrella                                                                       | ![](images/layer_classifier_6879.jpg) |
-| Layer(classifier)[971] | bubble                                                                         | ![](images/layer_classifier_6971.jpg) |
-| Layer(classifier)[987] | corn                                                                           | ![](images/layer_classifier_6987.jpg) |
+| Đơn vị                 | Class trong ImageNet                                                           | Ảnh Feature tại đây                            |
+|------------------------|--------------------------------------------------------------------------------|------------------------------------------------|
+| Layer(classifier)[1]   | goldfish, Carassius auratus                                                    | ![](images/Features/layer_classifier_61.jpg)   |
+| Layer(classifier)[3]   | tiger shark, Galeocerdo cuvieri                                                | ![](images/Features/layer_classifier_63.jpg)   |
+| Layer(classifier)[7]   | cock                                                                           | ![](images/Features/layer_classifier_67.jpg)   |
+| Layer(classifier)[30]  | bullfrog, Rana catesbeiana                                                     | ![](images/Features/layer_classifier_630.jpg)  |
+| Layer(classifier)[37]  | box turtle, box tortoise                                                       | ![](images/Features/layer_classifier_637.jpg)  |
+| Layer(classifier)[48]  | Komodo dragon, Komodo lizard, dragon lizard, giant lizard, Varanus komodoensis | ![](images/Features/layer_classifier_648.jpg)  |
+| Layer(classifier)[49]  | African crocodile, Nile crocodile, Crocodylus niloticus                        | ![](images/Features/layer_classifier_649.jpg)  |
+| Layer(classifier)[71]  | scorpion                                                                       | ![](images/Features/layer_classifier_671.jpg)  |
+| Layer(classifier)[76]  | tarantula                                                                      | ![](images/Features/layer_classifier_676.jpg)  |
+| Layer(classifier)[79]  | centipede                                                                      | ![](images/Features/layer_classifier_679.jpg)  |
+| Layer(classifier)[92]  | bee eater                                                                      | ![](images/Features/layer_classifier_692.jpg)  |
+| Layer(classifier)[99]  | goose                                                                          | ![](images/Features/layer_classifier_699.jpg)  |
+| Layer(classifier)[105] | koala, koala bear, kangaroo bear, native bear, Phascolarctos cinereus          | ![](images/Features/layer_classifier_6105.jpg) |
+| Layer(classifier)[107] | jellyfish                                                                      | ![](images/Features/layer_classifier_6107.jpg) |
+| Layer(classifier)[285] | Egyptian cat                                                                   | ![](images/Features/layer_classifier_6285.jpg) |
+| Layer(classifier)[301] | ladybug, ladybeetle, lady beetle, ladybird, ladybird beetle                    | ![](images/Features/layer_classifier_6301.jpg) |
+| Layer(classifier)[309] | bee                                                                            | ![](images/Features/layer_classifier_6309.jpg) |
+| Layer(classifier)[316] | cicada, cicala                                                                 | ![](images/Features/layer_classifier_6316.jpg) |
+| Layer(classifier)[403] | aircraft carrier, carrier, flattop, attack aircraft carrier                    | ![](images/Features/layer_classifier_6403.jpg) |
+| Layer(classifier)[417] | balloon                                                                        | ![](images/Features/layer_classifier_6417.jpg) |
+| Layer(classifier)[445] | bikini, two-piece                                                              | ![](images/Features/layer_classifier_6445.jpg) |
+| Layer(classifier)[485] | CD player                                                                      | ![](images/Features/layer_classifier_6485.jpg) |
+| Layer(classifier)[488] | chain                                                                          | ![](images/Features/layer_classifier_6488.jpg) |
+| Layer(classifier)[492] | chest                                                                          | ![](images/Features/layer_classifier_6492.jpg) |
+| Layer(classifier)[508] | computer keyboard, keypad                                                      | ![](images/Features/layer_classifier_6508.jpg) |
+| Layer(classifier)[531] | digital watch                                                                  | ![](images/Features/layer_classifier_6531.jpg) |
+| Layer(classifier)[562] | fountain                                                                       | ![](images/Features/layer_classifier_6562.jpg) |
+| Layer(classifier)[605] | iPod                                                                           | ![](images/Features/layer_classifier_6605.jpg) |
+| Layer(classifier)[629] | lipstick, lip rouge                                                            | ![](images/Features/layer_classifier_6629.jpg) |
+| Layer(classifier)[657] | missile                                                                        | ![](images/Features/layer_classifier_6657.jpg) |
+| Layer(classifier)[805] | soccer ball                                                                    | ![](images/Features/layer_classifier_6805.jpg) |
+| Layer(classifier)[879] | umbrella                                                                       | ![](images/Features/layer_classifier_6879.jpg) |
+| Layer(classifier)[971] | bubble                                                                         | ![](images/Features/layer_classifier_6971.jpg) |
+| Layer(classifier)[987] | corn                                                                           | ![](images/Features/layer_classifier_6987.jpg) |
 
 #### 4. Evaluation
 
@@ -251,7 +251,7 @@ filter = 1
 vào trong script ```main.py``` của thư mục ```CheckingModelPrediction```:
 
 Đối với class: umbrela , ta feed vào model ảnh: 
-![](./images/layer_classifier_6879.jpg)
+![](images/Features/layer_classifier_6879.jpg)
 ```python
 Prediction of VGG model 
 Class: umbrella 
@@ -259,7 +259,7 @@ Percentage: 99.99665069580078
 ```
 
 Đối với class: goldFish, ta feed vào model ảnh:
-![](./images/layer_classifier_61.jpg)
+![](images/Features/layer_classifier_61.jpg)
 ```python 
 Prediction of VGG model 
 Class: goldfish, Carassius auratus 
@@ -386,17 +386,17 @@ Thông qua ReLU: max(0, output)
 
 Kết quả thu được khi áp dụng Vanilla Gradient đối với VGG19
 
-| Ảnh gốc                             | Colored Gradient                                     | Negative Gradient                                            | Positive Gradient                                            | Heat Map                                               | Image overlay heat map                                  | 
-|-------------------------------------|------------------------------------------------------|--------------------------------------------------------------|--------------------------------------------------------------|--------------------------------------------------------|---------------------------------------------------------|
-| ![](images/cat_dog.png)             | ![](images/cat_dog_Vanilla_BP_color.jpg)             | ![](images/cat_dog_Vanilla_BP_negative_grad.jpg)             | ![](images/cat_dog_Vanilla_BP_positive_grad.jpg)             | ![](images/cat_dog_Vanilla_BP_Heatmap.png)             | ![](images/cat_dog_Vanilla_BP_On_Image.png)             |
-| ![](images/goldfinch.png)           | ![](images/goldfinch_Vanilla_BP_color.jpg)           | ![](images/goldfinch_Vanilla_BP_negative_grad.jpg)           | ![](images/goldfinch_Vanilla_BP_positive_grad.jpg)           | ![](images/goldfinch_Vanilla_BP_Heatmap.png)           | ![](images/goldfinch_Vanilla_BP_On_Image.png)           |
-| ![](images/hay2.jpeg)               | ![](images/hay2_Vanilla_BP_color.jpg)                | ![](images/hay2_Vanilla_BP_negative_grad.jpg)                | ![](images/hay2_Vanilla_BP_positive_grad.jpg)                | ![](images/hay2_Vanilla_BP_Heatmap.png)                | ![](images/hay2_Vanilla_BP_On_Image.png)                |
-| ![](images/house_finch.png)         | ![](images/house_finch_Vanilla_BP_color.jpg)         | ![](images/house_finch_Vanilla_BP_negative_grad.jpg)         | ![](images/house_finch_Vanilla_BP_positive_grad.jpg)         | ![](images/house_finch_Vanilla_BP_Heatmap.png)         | ![](images/house_finch_Vanilla_BP_On_Image.png)         |
-| ![](images/killer_whale.png)        | ![](images/killer_whale_Vanilla_BP_color.jpg)        | ![](images/killer_whale_Vanilla_BP_negative_grad.jpg)        | ![](images/killer_whale_Vanilla_BP_positive_grad.jpg)        | ![](images/killer_whale_Vanilla_BP_Heatmap.png)        | ![](images/killer_whale_Vanilla_BP_On_Image.png)        |
-| ![](images/rubber_eraser.png)       | ![](images/rubber_eraser_Vanilla_BP_color.jpg)       | ![](images/rubber_eraser_Vanilla_BP_negative_grad.jpg)       | ![](images/rubber_eraser_Vanilla_BP_positive_grad.jpg)       | ![](images/rubber_eraser_Vanilla_BP_Heatmap.png)       | ![](images/rubber_eraser_Vanilla_BP_On_Image.png)       |
-| ![](images/snake.jpg)               | ![](images/snake_Vanilla_BP_color.jpg)               | ![](images/snake_Vanilla_BP_negative_grad.jpg)               | ![](images/snake_Vanilla_BP_positive_grad.jpg)               | ![](images/snake_Vanilla_BP_Heatmap.png)               | ![](images/snake_Vanilla_BP_On_Image.png)               |
-| ![](images/spider.png)              | ![](images/spider_Vanilla_BP_color.jpg)              | ![](images/spider_Vanilla_BP_negative_grad.jpg)              | ![](images/spider_Vanilla_BP_positive_grad.jpg)              | ![](images/spider_Vanilla_BP_Heatmap.png)              | ![](images/spider_Vanilla_BP_On_Image.png)              |
-| ![](images/layer_classifier_61.jpg) | ![](images/layer_classifier_61_Vanilla_BP_color.jpg) | ![](images/layer_classifier_61_Vanilla_BP_negative_grad.jpg) | ![](images/layer_classifier_61_Vanilla_BP_positive_grad.jpg) | ![](images/layer_classifier_61_Vanilla_BP_Heatmap.png) | ![](images/layer_classifier_61_Vanilla_BP_On_Image.png) |
+| Ảnh gốc                                      | Colored Gradient                                     | Negative Gradient                                            | Positive Gradient                                            | Heat Map                                               | Image overlay heat map                                  | 
+|----------------------------------------------|------------------------------------------------------|--------------------------------------------------------------|--------------------------------------------------------------|--------------------------------------------------------|---------------------------------------------------------|
+| ![](images/Input/cat_dog.png)                | ![](images/VanillaGradient/cat_dog_Vanilla_BP_color.jpg)             | ![](images/VanillaGradient/cat_dog_Vanilla_BP_negative_grad.jpg)             | ![](images/VanillaGradient/cat_dog_Vanilla_BP_positive_grad.jpg)             | ![](images/VanillaGradient/cat_dog_Vanilla_BP_Heatmap.png)             | ![](images/VanillaGradient/cat_dog_Vanilla_BP_On_Image.png)             |
+| ![](images/Input/goldfinch.png)              | ![](images/VanillaGradient/goldfinch_Vanilla_BP_color.jpg)           | ![](images/VanillaGradient/goldfinch_Vanilla_BP_negative_grad.jpg)           | ![](images/VanillaGradient/goldfinch_Vanilla_BP_positive_grad.jpg)           | ![](images/VanillaGradient/goldfinch_Vanilla_BP_Heatmap.png)           | ![](images/VanillaGradient/goldfinch_Vanilla_BP_On_Image.png)           |
+| ![](images/Input/hay2.jpeg)                  | ![](images/VanillaGradient/hay2_Vanilla_BP_color.jpg)                | ![](images/VanillaGradient/hay2_Vanilla_BP_negative_grad.jpg)                | ![](images/VanillaGradient/hay2_Vanilla_BP_positive_grad.jpg)                | ![](images/VanillaGradient/hay2_Vanilla_BP_Heatmap.png)                | ![](images/VanillaGradient/hay2_Vanilla_BP_On_Image.png)                |
+| ![](images/Input/house_finch.png)            | ![](images/VanillaGradient/house_finch_Vanilla_BP_color.jpg)         | ![](images/VanillaGradient/house_finch_Vanilla_BP_negative_grad.jpg)         | ![](images/VanillaGradient/house_finch_Vanilla_BP_positive_grad.jpg)         | ![](images/VanillaGradient/house_finch_Vanilla_BP_Heatmap.png)         | ![](images/VanillaGradient/house_finch_Vanilla_BP_On_Image.png)         |
+| ![](images/Input/killer_whale.png)           | ![](images/VanillaGradient/killer_whale_Vanilla_BP_color.jpg)        | ![](images/VanillaGradient/killer_whale_Vanilla_BP_negative_grad.jpg)        | ![](images/VanillaGradient/killer_whale_Vanilla_BP_positive_grad.jpg)        | ![](images/VanillaGradient/killer_whale_Vanilla_BP_Heatmap.png)        | ![](images/VanillaGradient/killer_whale_Vanilla_BP_On_Image.png)        |
+| ![](images/Input/rubber_eraser.png)          | ![](images/VanillaGradient/rubber_eraser_Vanilla_BP_color.jpg)       | ![](images/VanillaGradient/rubber_eraser_Vanilla_BP_negative_grad.jpg)       | ![](images/VanillaGradient/rubber_eraser_Vanilla_BP_positive_grad.jpg)       | ![](images/VanillaGradient/rubber_eraser_Vanilla_BP_Heatmap.png)       | ![](images/VanillaGradient/rubber_eraser_Vanilla_BP_On_Image.png)       |
+| ![](images/Input/snake.jpg)                  | ![](images/VanillaGradient/snake_Vanilla_BP_color.jpg)               | ![](images/VanillaGradient/snake_Vanilla_BP_negative_grad.jpg)               | ![](images/VanillaGradient/snake_Vanilla_BP_positive_grad.jpg)               | ![](images/VanillaGradient/snake_Vanilla_BP_Heatmap.png)               | ![](images/VanillaGradient/snake_Vanilla_BP_On_Image.png)               |
+| ![](images/Input/spider.png)                 | ![](images/VanillaGradient/spider_Vanilla_BP_color.jpg)              | ![](images/VanillaGradient/spider_Vanilla_BP_negative_grad.jpg)              | ![](images/VanillaGradient/spider_Vanilla_BP_positive_grad.jpg)              | ![](images/VanillaGradient/spider_Vanilla_BP_Heatmap.png)              | ![](images/VanillaGradient/spider_Vanilla_BP_On_Image.png)              |
+| ![](images/Features/layer_classifier_61.jpg) | ![](images/VanillaGradient/layer_classifier_61_Vanilla_BP_color.jpg) | ![](images/VanillaGradient/layer_classifier_61_Vanilla_BP_negative_grad.jpg) | ![](images/VanillaGradient/layer_classifier_61_Vanilla_BP_positive_grad.jpg) | ![](images/VanillaGradient/layer_classifier_61_Vanilla_BP_Heatmap.png) | ![](images/VanillaGradient/layer_classifier_61_Vanilla_BP_On_Image.png) |
 
 ##### 3. Evaluation
 
@@ -495,17 +495,17 @@ Công thức của **Grad-CAM** như sau: mục tiêu là tìm map L cho lớp c
 ##### 1. Implementation
 ##### 2. Result
 
-| Ảnh gốc                             | Interested Class                          | Grad-CAM ý tưởng đơn giản                                               | Grad-CAM chuẩn                                            |
-|-------------------------------------|-------------------------------------------|-------------------------------------------------------------------------|-----------------------------------------------------------|
-| ![](images/cat_dog.png)             | Tibetan mastiff                           | ![](images/Grad-CAM_FirstApproach/cat_dog_Cam_On_Image.png)             | ![](images/Grad-CAM/cat_dog_Cam_On_Image.png)             |
-| ![](images/goldfinch.png)           | goldfinch, Carduelis carduelis            | ![](images/Grad-CAM_FirstApproach/goldfinch_Cam_On_Image.png)           | ![](images/Grad-CAM/goldfinch_Cam_On_Image.png)           |
-| ![](images/hay2.jpeg)               | hay                                       | ![](images/Grad-CAM_FirstApproach/hay2_Cam_On_Image.png)                | ![](images/Grad-CAM/hay2_Cam_On_Image.png)                |
-| ![](images/house_finch.png)         | house finch, linnet, Carpodacus mexicanus | ![](images/Grad-CAM_FirstApproach/house_finch_Cam_On_Image.png)         | ![](images/Grad-CAM/house_finch_Cam_On_Image.png)         |
-| ![](images/killer_whale.png)        | killer whale                              | ![](images/Grad-CAM_FirstApproach/killer_whale_Cam_On_Image.png)        | ![](images/Grad-CAM/killer_whale_Cam_On_Image.png)        |
-| ![](images/rubber_eraser.png)       | rubber eraser                             | ![](images/Grad-CAM_FirstApproach/rubber_eraser_Cam_On_Image.png)       | ![](images/Grad-CAM/rubber_eraser_Cam_On_Image.png)       |
-| ![](images/snake.jpg)               | snake                                     | ![](images/Grad-CAM_FirstApproach/snake_Cam_On_Image.png)               | ![](images/Grad-CAM/snake_Cam_On_Image.png)               |
-| ![](images/spider.png)              | spider                                    | ![](images/Grad-CAM_FirstApproach/spider_Cam_On_Image.png)              | ![](images/Grad-CAM/spider_Cam_On_Image.png)              |
-| ![](images/layer_classifier_61.jpg) | goldfish, Carassius auratus               | ![](images/Grad-CAM_FirstApproach/layer_classifier_61_Cam_On_Image.png) | ![](images/Grad-CAM/layer_classifier_61_Cam_On_Image.png) |
+| Ảnh gốc                                      | Interested Class                          | Grad-CAM ý tưởng đơn giản                                               | Grad-CAM chuẩn                                            |
+|----------------------------------------------|-------------------------------------------|-------------------------------------------------------------------------|-----------------------------------------------------------|
+| ![](images/Input/cat_dog.png)                | Tibetan mastiff                           | ![](images/Grad-CAM_FirstApproach/cat_dog_Cam_On_Image.png)             | ![](images/Grad-CAM/cat_dog_Cam_On_Image.png)             |
+| ![](images/Input/goldfinch.png)              | goldfinch, Carduelis carduelis            | ![](images/Grad-CAM_FirstApproach/goldfinch_Cam_On_Image.png)           | ![](images/Grad-CAM/goldfinch_Cam_On_Image.png)           |
+| ![](images/Input/hay2.jpeg)                  | hay                                       | ![](images/Grad-CAM_FirstApproach/hay2_Cam_On_Image.png)                | ![](images/Grad-CAM/hay2_Cam_On_Image.png)                |
+| ![](images/Input/house_finch.png)            | house finch, linnet, Carpodacus mexicanus | ![](images/Grad-CAM_FirstApproach/house_finch_Cam_On_Image.png)         | ![](images/Grad-CAM/house_finch_Cam_On_Image.png)         |
+| ![](images/Input/killer_whale.png)           | killer whale                              | ![](images/Grad-CAM_FirstApproach/killer_whale_Cam_On_Image.png)        | ![](images/Grad-CAM/killer_whale_Cam_On_Image.png)        |
+| ![](images/Input/rubber_eraser.png)          | rubber eraser                             | ![](images/Grad-CAM_FirstApproach/rubber_eraser_Cam_On_Image.png)       | ![](images/Grad-CAM/rubber_eraser_Cam_On_Image.png)       |
+| ![](images/Input/snake.jpg)                  | snake                                     | ![](images/Grad-CAM_FirstApproach/snake_Cam_On_Image.png)               | ![](images/Grad-CAM/snake_Cam_On_Image.png)               |
+| ![](images/Input/spider.png)                 | spider                                    | ![](images/Grad-CAM_FirstApproach/spider_Cam_On_Image.png)              | ![](images/Grad-CAM/spider_Cam_On_Image.png)              |
+| ![](images/Features/layer_classifier_61.jpg) | goldfish, Carassius auratus               | ![](images/Grad-CAM_FirstApproach/layer_classifier_61_Cam_On_Image.png) | ![](images/Grad-CAM/layer_classifier_61_Cam_On_Image.png) |
 
 
 ##### 3. Evaluation
@@ -528,17 +528,17 @@ phần cụ thể của bản đồ phân bổ theo pixel.
 ##### 1. Implementation
 ##### 2. Result
 
-| Ảnh gốc                             | Interested Class                          | Guided Grad-CAM   (Vanilla + GradCAM)                            | 
-|-------------------------------------|-------------------------------------------|------------------------------------------------------------------|
-| ![](images/cat_dog.png)             | Tibetan mastiff                           | ![](images/Guided_Grad-CAM/cat_dog_Cam_On_Image.png)             |
-| ![](images/goldfinch.png)           | goldfinch, Carduelis carduelis            | ![](images/Guided_Grad-CAM/goldfinch_Cam_On_Image.png)           | 
-| ![](images/hay2.jpeg)               | hay                                       | ![](images/Guided_Grad-CAM/hay2_Cam_On_Image.png)                | 
-| ![](images/house_finch.png)         | house finch, linnet, Carpodacus mexicanus | ![](images/Guided_Grad-CAM/house_finch_Cam_On_Image.png)         | 
-| ![](images/killer_whale.png)        | killer whale                              | ![](images/Guided_Grad-CAM/killer_whale_Cam_On_Image.png)        | 
-| ![](images/rubber_eraser.png)       | rubber eraser                             | ![](images/Guided_Grad-CAM/rubber_eraser_Cam_On_Image.png)       | 
-| ![](images/snake.jpg)               | snake                                     | ![](images/Guided_Grad-CAM/snake_Cam_On_Image.png)               | 
-| ![](images/spider.png)              | spider                                    | ![](images/Guided_Grad-CAM/spider_Cam_On_Image.png)              | 
-| ![](images/layer_classifier_61.jpg) | goldfish, Carassius auratus               | ![](images/Guided_Grad-CAM/layer_classifier_61_Cam_On_Image.png) | 
+| Ảnh gốc                                      | Interested Class                          | Guided Grad-CAM   (Vanilla + GradCAM)                            | 
+|----------------------------------------------|-------------------------------------------|------------------------------------------------------------------|
+| ![](images/Input/cat_dog.png)                | Tibetan mastiff                           | ![](images/Guided_Grad-CAM/cat_dog_Cam_On_Image.png)             |
+| ![](images/Input/goldfinch.png)              | goldfinch, Carduelis carduelis            | ![](images/Guided_Grad-CAM/goldfinch_Cam_On_Image.png)           | 
+| ![](images/Input/hay2.jpeg)                  | hay                                       | ![](images/Guided_Grad-CAM/hay2_Cam_On_Image.png)                | 
+| ![](images/Input/house_finch.png)            | house finch, linnet, Carpodacus mexicanus | ![](images/Guided_Grad-CAM/house_finch_Cam_On_Image.png)         | 
+| ![](images/Input/killer_whale.png)           | killer whale                              | ![](images/Guided_Grad-CAM/killer_whale_Cam_On_Image.png)        | 
+| ![](images/Input/rubber_eraser.png)          | rubber eraser                             | ![](images/Guided_Grad-CAM/rubber_eraser_Cam_On_Image.png)       | 
+| ![](images/Input/snake.jpg)                  | snake                                     | ![](images/Guided_Grad-CAM/snake_Cam_On_Image.png)               | 
+| ![](images/Input/spider.png)                 | spider                                    | ![](images/Guided_Grad-CAM/spider_Cam_On_Image.png)              | 
+| ![](images/Features/layer_classifier_61.jpg) | goldfish, Carassius auratus               | ![](images/Guided_Grad-CAM/layer_classifier_61_Cam_On_Image.png) | 
 
 ##### 3. Evaluation
 
@@ -569,14 +569,15 @@ tạo ra (n), giá trị này được đề xuất sử dụng là 50.
 ##### 1. Implementation
 ##### 2. Result
 
-| Ảnh gốc                   | sigma = a / (x_min - x_max) | SmoothGrad                                                   | 
-|---------------------------|-----------------------------|--------------------------------------------------------------|
-| ![](images/goldfinch.png) | a = 0                       | ![](images/goldfinch_Vanilla_BP_Heatmap.png)                 | 
-| ![](images/goldfinch.png) | a = 1                       | ![](images/SmoothGrad/Goldfinch/1/goldfinch_Cam_Heatmap.png) | 
-| ![](images/goldfinch.png) | a = 2                       | ![](images/SmoothGrad/Goldfinch/2/goldfinch_Cam_Heatmap.png) | 
-| ![](images/goldfinch.png) | a = 3                       | ![](images/SmoothGrad/Goldfinch/3/goldfinch_Cam_Heatmap.png) | 
-| ![](images/goldfinch.png) | a = 4                       | ![](images/SmoothGrad/Goldfinch/4/goldfinch_Cam_Heatmap.png) | 
-| ![](images/goldfinch.png) | a = 5                       | ![](images/SmoothGrad/Goldfinch/5/goldfinch_Cam_Heatmap.png) | 
+| Ảnh gốc                            | sigma = a / (x_min - x_max) | Vanilla Grad + SmoothGrad                          | 
+|------------------------------------|-----------------------------|----------------------------------------------------|
+| ![](images/Input/goldfinch.png)    | a = 0...5                   | ![](images/SmoothGrad/Goldfinch/goldfinch.gif)     | 
+| ![](images/Input/snake.jpg)        | a = 0...5                   | ![](images/SmoothGrad/Snake/snake.gif)             | 
+| ![](images/Input/cat_dog.png)      | a = 0...5                   | ![](images/SmoothGrad/Dog/Dog.gif)                 | 
+| ![](images/Input/spider.png)       | a = 0...5                   | ![](images/SmoothGrad/Spider/spider.gif)           | 
+| ![](images/Input/hay2.jpeg)        | a = 0...5                   | ![](images/SmoothGrad/Hay/hay.gif)                 | 
+| ![](images/Input/house_finch.png)  | a = 0...5                   | ![](images/SmoothGrad/Housefinch/housefinch.gif)   | 
+| ![](images/Input/killer_whale.png) | a = 0...5                   | ![](images/SmoothGrad/Killerwhale/killerwhale.gif) | 
  
 
 ##### 3. Evaluation 
