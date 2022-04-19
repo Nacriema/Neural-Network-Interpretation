@@ -466,6 +466,21 @@ gradient tại lớp X_n đối với ví dụ ở trên sẽ là:
 
 ##### 3. Evaluation
 
+
+### Comparison between Vanilla Gradient, DeconvNet and Guided Backpropagation
+
+| Ảnh gốc                                      | Vanilla Gradient Results                                             | DeconvNet results                                             | Guided Backpropagation results                                            | 
+|----------------------------------------------|----------------------------------------------------------------------|---------------------------------------------------------------|---------------------------------------------------------------------------|
+| ![](images/Input/cat_dog.png)                | ![](images/VanillaGradient/cat_dog_Vanilla_BP_color.jpg)             | ![](images/DeconvNet/cat_dog_Deconvnet_color.jpg)             | ![](images/GuidedBackpropagation/cat_dog_Guided_BP_color.jpg)             | 
+| ![](images/Input/goldfinch.png)              | ![](images/VanillaGradient/goldfinch_Vanilla_BP_color.jpg)           | ![](images/DeconvNet/goldfinch_Deconvnet_color.jpg)           | ![](images/GuidedBackpropagation/goldfinch_Guided_BP_color.jpg)           |  
+| ![](images/Input/hay2.jpeg)                  | ![](images/VanillaGradient/hay2_Vanilla_BP_color.jpg)                | ![](images/DeconvNet/hay2_Deconvnet_color.jpg)                | ![](images/GuidedBackpropagation/hay2_Guided_BP_color.jpg)                | 
+| ![](images/Input/house_finch.png)            | ![](images/VanillaGradient/house_finch_Vanilla_BP_color.jpg)         | ![](images/DeconvNet/house_finch_Deconvnet_color.jpg)         | ![](images/GuidedBackpropagation/house_finch_Guided_BP_color.jpg)         |  
+| ![](images/Input/killer_whale.png)           | ![](images/VanillaGradient/killer_whale_Vanilla_BP_color.jpg)        | ![](images/DeconvNet/killer_whale_Deconvnet_color.jpg)        | ![](images/GuidedBackpropagation/killer_whale_Guided_BP_color.jpg)        |  
+| ![](images/Input/rubber_eraser.png)          | ![](images/VanillaGradient/rubber_eraser_Vanilla_BP_color.jpg)       | ![](images/DeconvNet/rubber_eraser_Deconvnet_color.jpg)       | ![](images/GuidedBackpropagation/rubber_eraser_Guided_BP_color.jpg)       | 
+| ![](images/Input/snake.jpg)                  | ![](images/VanillaGradient/snake_Vanilla_BP_color.jpg)               | ![](images/DeconvNet/snake_Deconvnet_color.jpg)               | ![](images/GuidedBackpropagation/snake_Guided_BP_color.jpg)               |  
+| ![](images/Input/spider.png)                 | ![](images/VanillaGradient/spider_Vanilla_BP_color.jpg)              | ![](images/DeconvNet/spider_Deconvnet_color.jpg)              | ![](images/GuidedBackpropagation/spider_Guided_BP_color.jpg)              | 
+| ![](images/Features/layer_classifier_61.jpg) | ![](images/VanillaGradient/layer_classifier_61_Vanilla_BP_color.jpg) | ![](images/DeconvNet/layer_classifier_61_Deconvnet_color.jpg) | ![](images/GuidedBackpropagation/layer_classifier_61_Guided_BP_color.jpg) | 
+
 ### Grad-CAM
 
 Grad-CAM cung cấp cách thức để giải thích trực quan cho các quyết định của CNNs. Không giống như các phương pháp khác, 
