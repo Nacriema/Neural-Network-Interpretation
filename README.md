@@ -14,7 +14,7 @@ Các kỹ thuật được áp dụng như sau:
 * [Pixel Attribution (Saliency Maps)](#pixel-attribution-saliency-maps): Các pixel đóng góp như thế nào vào việc đưa ra quyết định của model ?
   * [Vanilla Gradient](#vanilla-gradient-saliency-maps)
   * [DeconvNet](#deconvnet)
-  * [Guided Backpropagation](#)
+  * [Guided Backpropagation](#guided-backpropagation)
   * [Grad-CAM](#grad-cam)
   * [Guided Grad-CAM](#guided-grad-cam)
   * [SmoothGrad](#smoothgrad)
