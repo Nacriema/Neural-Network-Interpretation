@@ -17,7 +17,7 @@ Các kỹ thuật được áp dụng như sau:
   * [Grad-CAM](#grad-cam)
   * [Guided Grad-CAM](#guided-grad-cam)
   * [SmoothGrad](#smoothgrad)
-* [Concepts](): Những concept trừu tượng nào mà Neural Net đã học ? 
+* [Concepts](#detecting-concepts): Những concept trừu tượng nào mà Neural Net đã học ? 
 * [Adversarial Examples](): Làm cách nào ta có thể đánh lừa được Neural Network
 * [Influential Instances](): ???
 
@@ -386,8 +386,8 @@ Thông qua ReLU: max(0, output)
 
 Kết quả thu được khi áp dụng Vanilla Gradient đối với VGG19
 
-| Ảnh gốc                                      | Colored Gradient                                     | Negative Gradient                                            | Positive Gradient                                            | Heat Map                                               | Image overlay heat map                                  | 
-|----------------------------------------------|------------------------------------------------------|--------------------------------------------------------------|--------------------------------------------------------------|--------------------------------------------------------|---------------------------------------------------------|
+| Ảnh gốc                                      | Colored Gradient                                                     | Negative Gradient                                                            | Positive Gradient                                                            | Heat Map                                                               | Image overlay heat map                                                  | 
+|----------------------------------------------|----------------------------------------------------------------------|------------------------------------------------------------------------------|------------------------------------------------------------------------------|------------------------------------------------------------------------|-------------------------------------------------------------------------|
 | ![](images/Input/cat_dog.png)                | ![](images/VanillaGradient/cat_dog_Vanilla_BP_color.jpg)             | ![](images/VanillaGradient/cat_dog_Vanilla_BP_negative_grad.jpg)             | ![](images/VanillaGradient/cat_dog_Vanilla_BP_positive_grad.jpg)             | ![](images/VanillaGradient/cat_dog_Vanilla_BP_Heatmap.png)             | ![](images/VanillaGradient/cat_dog_Vanilla_BP_On_Image.png)             |
 | ![](images/Input/goldfinch.png)              | ![](images/VanillaGradient/goldfinch_Vanilla_BP_color.jpg)           | ![](images/VanillaGradient/goldfinch_Vanilla_BP_negative_grad.jpg)           | ![](images/VanillaGradient/goldfinch_Vanilla_BP_positive_grad.jpg)           | ![](images/VanillaGradient/goldfinch_Vanilla_BP_Heatmap.png)           | ![](images/VanillaGradient/goldfinch_Vanilla_BP_On_Image.png)           |
 | ![](images/Input/hay2.jpeg)                  | ![](images/VanillaGradient/hay2_Vanilla_BP_color.jpg)                | ![](images/VanillaGradient/hay2_Vanilla_BP_negative_grad.jpg)                | ![](images/VanillaGradient/hay2_Vanilla_BP_positive_grad.jpg)                | ![](images/VanillaGradient/hay2_Vanilla_BP_Heatmap.png)                | ![](images/VanillaGradient/hay2_Vanilla_BP_On_Image.png)                |
@@ -632,7 +632,94 @@ Nói chung đây là một trạng thái rât không hài lòng. Chúng ta phả
 **Saliency** nào nữa mà hãy tập trung vào câu hỏi **"Làm thế nào để đánh giá chúng ?!!"**
 
 
-### Disadvantages
+## Detecting Concepts
+
+Ở phần trên, ta đã gặp được các phương thức được sử dụng để giải thích **black box models** thông qua sự phân bố tính năng (feature attribution).
+Tuy nhiên, có một vài hạn chế liên quan đến cách tiếp cận dựa vào feature này. Đầu tiên, các features mà mô hình học được 
+**không nhất thiết phải thân thiện với người dùng về mặt diễn giải bằng hình ảnh**. Ví dụ: tầm quan trọng của một pixel 
+trong một hình ảnh thường không truyền đạt nhiều ý nghĩa diễn giải. 
+Thứ hai khả năng giải thích dựa vào feature nó giới hạn trong khuôn khổ số lượng các features mà kiến trúc model có. 
+
+Cách tiếp cận dựa trên khái niệm (**Concept-based**) nhằm giải quyết cả hai hạn chế nêu trên. Một khái niệm có thể là bất 
+kỳ sự trừu tượng nào, chẳng hạn như màu sắc, một đối tượng hoặc thậm chí là một ý tưởng. Với bất kỳ khái niệm nào do người 
+dùng xác định, mặc dù mạng neuron có thể không được đào tạo rõ ràng với các khái niệm đã cho, nhưng phương pháp dựa trên khái 
+niệm sẽ phát hiện rằng khái niệm đó được nhúng trong không gian tiềm ẩn (latent space) mà mạng neuron học được. Nói cách 
+khác, cách tiếp cận dựa trên khái niệm có thể tạo ra các giải thích không bị giới hạn bởi không gian đặc trưng của mạng neuron (features).
+
+Trong phần này, ta sẽ tập trung chính vào phương pháp **Testing with Concept Activation Vectors** (TCAV) của [Kim et al.]() 
+
+### TCAV: Testing with Concept Activation Vectors 
+
+TCAV được đề xuất là sẽ tạo ra các giải thích toàn cục cho mạng neuron, nhưng trong lý thuyết, nó cũng sẽ hoạt động cho bất kỳ 
+mô hình nào có thể lấy đạo hàm định hướng được. Đối với bất kỳ khái niệm nhất định nào, TCAV đo lượng mức độ ảnh hưởng của khái 
+niệm đó đối với dự đoán của mô hình cho một class dự đoán nhất định. Ví dụ: TCAV có thể trả lời các câu hỏi như khái niệm "có sọc"
+ảnh hưởng như thế nào đến mô hình phân loại hình ảnh và cho ra là "ngựa vằn". Vì TCAV mô tả mối quan hệ giữa một khái niệm với một 
+class, thay vì giải thích một dự đoán duy nhất, nó cung cấp cách diễn giải hữu ích trên phạm vi toàn cục của mô hình. 
+
+#### Concept Activation Vector (CAV) 
+
+Một CAV đó là sự biểu diễn số học cho phép tổng quan một khái niệm trong không gian kích hoạt (activation space) của một lớp mạng neuron. 
+Một CAV, ký hiệu <img src="https://render.githubusercontent.com/render/math?math=v_l^c">, phụ thuộc vào khái niệm C và lớp mạng neuron l, với 
+l được gọi là nút cổ chai (bottleneck) của mô hình [?](https://stats.stackexchange.com/questions/262044/what-does-a-bottleneck-layer-mean-in-neural-networks).
+Để tính toán được giá trị CAV của một khái niệm C. Đầu tiên, ta phải chuẩn bị 2 bộ dữ liệu: Một bộ dữ liệu mô tả cho khái niệm C (concept dataset) và một bộ 
+dữ liệu ngẫu nhiên bao gồm dữ liệu tùy ý. Ví dụ, để định nghĩa cho khái niệm "có sọc", ta có thể thu thập những tấm ảnh có sọc là ảnh trong bộ **concept dataset**, trong 
+khi đó bộ dữ liệu ngẫu nhiên còn lại là nhóm các ảnh ngẫu nhiên không chứa sọc. Tiếp theo đó, ta nhắm vào một lớp ẩn l của model và huấn luyện 
+bộ phân loại nhị phân (binary classifier) cho phép chia mức kích hoạt được tạo ra bởi khái niệm tập hợp từ những khái niệm được tạo ra bởi tập hợp ngẫu nhiên. 
+Vector hệ số của bộ phân loại nhị phân này được gọi là CAV <img src="https://render.githubusercontent.com/render/math?math=v_l^c">. Trong thực tế ta có thể sử dụng SVM hoặc là một 
+mô hình hồi quy logistic như là một bộ phân loại nhị phân. Cuối cùng, cho trước một ảnh input x, ta có thể đo được "độ nhạy khái niệm" (conceptual sensitivity) bằng cách tính **đạo hàm có hướng** (directional derivative)
+của hàm dự đoán theo hướng của đơn vị CAV. 
+
+<img src="https://render.githubusercontent.com/render/math?math=S_{C, k, l}(x) = \triangledown h_{l, k}(\hat{f}_l(x)).v_l^c"> 
+
+Xem đạo hàm có hướng của hàm có đạo hàm tại x [tại đây](https://en.wikipedia.org/wiki/Directional_derivative#:~:text=In%20mathematics%2C%20the%20directional%20derivative,a%20velocity%20specified%20by%20v.)
+
+Các ký hiệu ở đây có nghĩa như sau: <img src="https://render.githubusercontent.com/render/math?math=\hat{f}_l"> biến đổi ảnh đầu vào x sang vector kích hoạt tại lớp l và <img src="https://render.githubusercontent.com/render/math?math=h_{l, k}"> biến đổi vector kích 
+hoạt sang logit output của class k. 
+
+Theo toán học, dấu của <img src="https://render.githubusercontent.com/render/math?math=S_{C, k, l}(x)"> chỉ phụ thuộc vào góc giữa gradient của <img src="https://render.githubusercontent.com/render/math?math=h_{l, k}(\hat{f}_l(x))"> và <img src="https://render.githubusercontent.com/render/math?math=v_l^c">. Nếu 
+góc này vượt quá 90 độ, thì giá trị <img src="https://render.githubusercontent.com/render/math?math=S_{C, k, l}(x)"> sẽ dương, và ngược lại nếu nhỏ hơn 90 độ, thì giá trị của <img src="https://render.githubusercontent.com/render/math?math=S_{C, k, l}(x)"> là âm. Bởi vì gradient 
+<img src="https://render.githubusercontent.com/render/math?math=\triangledown h_{l, k}"> sẽ chỉ đến hướng mà cực đại hàm đầu ra nhanh nhất, còn độ nhạy khái niệm <img src="https://render.githubusercontent.com/render/math?math=S_{C, k, l}(x)">, thì nó chỉ ra rằng có phải 
+<img src="https://render.githubusercontent.com/render/math?math=v_l^c"> cũng đang chỉ đến hướng cực đại hàm kích hoạt <img src="https://render.githubusercontent.com/render/math?math=\hat{f}_l"> biến đổi ảnh đầu vào x sang vector kích hoạt tại lớp l và <img src="https://render.githubusercontent.com/render/math?math=h_{l, k}">
+. Do đó, nếu như giá trị sensitive <img src="https://render.githubusercontent.com/render/math?math=S_{C, k, l}(x)"> >0 có nghĩa là khái niệm C đang ủng hộ cho model phân loại ảnh x thuộc vào lớp k. 
+
+
+#### Testing with CAVs (TCAV)
+
+Ở phần trên, ta học cách tính toán giá trị độ nhạy đối với khái niệm (conceptual sensitivity) của một điểm dữ liệu. Tuy nhiên mục tiêu của ta là tạo ra một đánh giá mang tính tổng quát (global explanation) 
+tức là chỉ ra giá trị tổng quát cho toàn bộ lớp. Một các tiếp cận tổng quát được áp dụng trong TCAV đó là tính toán tỉ lệ 
+đầu vào cho độ nhạy khái niệm giá trị dương với tổng số lượng đầu vào cho một lớp. 
+
+<img src="https://render.githubusercontent.com/render/math?math=TCAV_{Q, C, k, l} = \frac{|x \in X_k: S_{C,k,l}(x) > 0|}{|X_k|}">
+
+Quay trở lại với ví dụ, ta mong muốn xem thử cái khái niệm "có sọc" ảnh hưởng như thế nào đến mô hình khi mà nó cho ra 
+quyết định là "ngựa vằn". Ta thu thập dữ liệu được đánh nhãn là "ngựa vằn". Và tính toán giá trị conceptual sensitivity cho mỗi 
+ảnh đầu vào. Sau đó giá trị TCAV của khái niệm "sọc" với dự đoán "ngựa vằn" được tính bằng số ảnh "ngựa vằn" đầu vào có giá trị 
+conceptual sensitivities là dương chia cho tổng số ảnh "ngựa vằn". Nói cách khác, giá trị TCAV với C=Sọc và k=Ngựa vằn mà bằng 0.8 có nghĩa là 
+80% dự đoán cho lớp "ngựa vằn" là bị ảnh hưởng tích cực bởi khái niệm "sọc". 
+
+Điều này thật tuyệt, nhưng làm cách nào ta có thể biết được giá trị TCAV là có ý nghĩa ? Sau tất cả, CAV là vector được huấn luyện bởi người dùng chọn dữ liệu cho khái niệm và dữ liệu ngẫu nhiên. 
+Nếu mà dữ liệu được sử dụng để huẩn luyện CAV mà tệ, thì sự giải thích bằng số liệu ở trên là vô nghĩa. Do đó, ta cần thực hiện bài kiểm tra ý nghĩa thông kê đơn giản để giúp cho TCAV trở nên đáng 
+tin cậy hơn. Nghĩa là thay vì chỉ đào tạo một CAV, ta đào tạo hàng loạt CAVs bằng cách sử dụng các bộ dữ liệu ngẫu nhiên trong khi giữ nguyên bộ concept dataset. Một khái niệm có ý nghĩa nên tạo ra được CAV với điểm 
+TCAV nhất quán. Quy trình kiếm tra được trình bày như sau: 
+1. Thu thập N mẫu dữ liệu ngẫu nhiên, và gía trị N được khuyến nghị là 10. 
+2. Cố định bộ dữ liệu khái niệm và tính toán giá trị TCAV sử dụng mỗi ảnh trong N ảnh random vừa chọn ra.
+3. Áp dụng [two-sided t-test](https://wiki2.org/en/Student%27s_t-test) giữa N TCAV tạo ra bởi random data này với N TCAV tạo ra bởi cùng một random CAV. Một random CAV có thể có được bằng cách chọn random dataset as the concept dataset ???
+
+Ta cũng nên áp dụng phương pháp hiệu chỉnh nhiều thử nghiệm ở đây nếu ta có nhiều giả thuyết. Bài báo gốc sử dụng hiệu chỉnh Bonferroni, và ở đây số lượng giả thuyết bằng số lượng khái niệm ta đang thứ nghiệm. 
+
+### Example 
+
+Xem ví dụ về TCAV trên [Github](https://github.com/tensorflow/tcav/blob/master/Run_TCAV.ipynb). Tiếp tục lấy ví dụ về lớp 
+"ngựa vằn" mà ta đề cập ở phía trên, ví dụ này cho thấy kết quả của các điểm TCAV cho các khái niệm "sọc", "zigzagged" và "dotted". Bộ phân loại hình ảnh đang sử dụng đó là InceptionV3 - một mạng cnn được huấn luyện sử dụng dữ liệu ImageNet.
+Mỗi loại dữ liệu concept và random data đều chứa 50 tấm ảnh, và ta sử dụng 10 tập random dataset cho kiểm định ý nghĩa thống kê với mức ý nghĩa 0.05. Ta không sử dụng hiệu chỉnh Bonferroni, bởi vì ta chỉ có một vài tập dữ liệu ngẫu nhiên, nhưng 
+trong thực tế nên áp dụng thêm nó để tránh phát hiện sai. 
+
+Trong thực tế, ta nên sử dụng nhiều hơn 50 tấm ảnh trong mỗi loại dữ liệu để có thể train các CAVs tốt hơn. Ta cũng nên sử dụng nhiều hơn 10 tập random để có thể có được statistical significance tests tốt hơn. Ta cũng có thể áp dụng TCAV đối với 
+nhiều bottlenecks để có thể có thêm nhiều mức độ quan sát khác nhau. 
+
+#### Perform TCAV 
+
+Mình sẽ sử dụng Captum của Pytorch để thực hiện TCAV, chi tiết xem ở đây
 
 ## References
 [1] [Feature Visualization Implementation using FastAI](https://towardsdatascience.com/how-to-visualize-convolutional-features-in-40-lines-of-code-70b7d87b0030)
@@ -642,4 +729,5 @@ Nói chung đây là một trạng thái rât không hài lòng. Chúng ta phả
 [3] [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/)
 
 
-
+## TODO: 
+* Let's refactor code !!!
