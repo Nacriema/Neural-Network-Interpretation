@@ -14,6 +14,7 @@ Các kỹ thuật được áp dụng như sau:
 * [Pixel Attribution (Saliency Maps)](#pixel-attribution-saliency-maps): Các pixel đóng góp như thế nào vào việc đưa ra quyết định của model ?
   * [Vanilla Gradient](#vanilla-gradient-saliency-maps)
   * [DeconvNet](#deconvnet)
+  * [Guided Backpropagation](#)
   * [Grad-CAM](#grad-cam)
   * [Guided Grad-CAM](#guided-grad-cam)
   * [SmoothGrad](#smoothgrad)
@@ -443,6 +444,27 @@ gradient tại lớp X_n đối với ví dụ ở trên sẽ là:
 
 ##### 3. Evaluation
 
+
+### Guided Backpropagation
+
+#### Implementation, Result and Evaluation
+
+##### 1. Implementation
+##### 2. Result
+
+| Ảnh gốc                                      | Colored Gradient                                                          | Negative Gradient                                                                 | Positive Gradient                                                                 | Heat Map                                                          | Image overlay heat map                                             | 
+|----------------------------------------------|---------------------------------------------------------------------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|-------------------------------------------------------------------|--------------------------------------------------------------------|
+| ![](images/Input/cat_dog.png)                | ![](images/GuidedBackpropagation/cat_dog_Guided_BP_color.jpg)             | ![](images/GuidedBackpropagation/cat_dog_Guided_BP_negative_grad.jpg)             | ![](images/GuidedBackpropagation/cat_dog_Guided_BP_positive_grad.jpg)             | ![](images/GuidedBackpropagation/cat_dog_Heatmap.png)             | ![](images/GuidedBackpropagation/cat_dog_On_Image.png)             |
+| ![](images/Input/goldfinch.png)              | ![](images/GuidedBackpropagation/goldfinch_Guided_BP_color.jpg)           | ![](images/GuidedBackpropagation/goldfinch_Guided_BP_negative_grad.jpg)           | ![](images/GuidedBackpropagation/goldfinch_Guided_BP_positive_grad.jpg)           | ![](images/GuidedBackpropagation/goldfinch_Heatmap.png)           | ![](images/GuidedBackpropagation/goldfinch_On_Image.png)           |
+| ![](images/Input/hay2.jpeg)                  | ![](images/GuidedBackpropagation/hay2_Guided_BP_color.jpg)                | ![](images/GuidedBackpropagation/hay2_Guided_BP_negative_grad.jpg)                | ![](images/GuidedBackpropagation/hay2_Guided_BP_positive_grad.jpg)                | ![](images/GuidedBackpropagation/hay2_Heatmap.png)                | ![](images/GuidedBackpropagation/hay2_On_Image.png)                |
+| ![](images/Input/house_finch.png)            | ![](images/GuidedBackpropagation/house_finch_Guided_BP_color.jpg)         | ![](images/GuidedBackpropagation/house_finch_Guided_BP_negative_grad.jpg)         | ![](images/GuidedBackpropagation/house_finch_Guided_BP_positive_grad.jpg)         | ![](images/GuidedBackpropagation/house_finch_Heatmap.png)         | ![](images/GuidedBackpropagation/house_finch_On_Image.png)         |
+| ![](images/Input/killer_whale.png)           | ![](images/GuidedBackpropagation/killer_whale_Guided_BP_color.jpg)        | ![](images/GuidedBackpropagation/killer_whale_Guided_BP_negative_grad.jpg)        | ![](images/GuidedBackpropagation/killer_whale_Guided_BP_positive_grad.jpg)        | ![](images/GuidedBackpropagation/killer_whale_Heatmap.png)        | ![](images/GuidedBackpropagation/killer_whale_On_Image.png)        |
+| ![](images/Input/rubber_eraser.png)          | ![](images/GuidedBackpropagation/rubber_eraser_Guided_BP_color.jpg)       | ![](images/GuidedBackpropagation/rubber_eraser_Guided_BP_negative_grad.jpg)       | ![](images/GuidedBackpropagation/rubber_eraser_Guided_BP_positive_grad.jpg)       | ![](images/GuidedBackpropagation/rubber_eraser_Heatmap.png)       | ![](images/GuidedBackpropagation/rubber_eraser_On_Image.png)       |
+| ![](images/Input/snake.jpg)                  | ![](images/GuidedBackpropagation/snake_Guided_BP_color.jpg)               | ![](images/GuidedBackpropagation/snake_Guided_BP_negative_grad.jpg)               | ![](images/GuidedBackpropagation/snake_Guided_BP_positive_grad.jpg)               | ![](images/GuidedBackpropagation/snake_Heatmap.png)               | ![](images/GuidedBackpropagation/snake_On_Image.png)               |
+| ![](images/Input/spider.png)                 | ![](images/GuidedBackpropagation/spider_Guided_BP_color.jpg)              | ![](images/GuidedBackpropagation/spider_Guided_BP_negative_grad.jpg)              | ![](images/GuidedBackpropagation/spider_Guided_BP_positive_grad.jpg)              | ![](images/GuidedBackpropagation/spider_Heatmap.png)              | ![](images/GuidedBackpropagation/spider_On_Image.png)              |
+| ![](images/Features/layer_classifier_61.jpg) | ![](images/GuidedBackpropagation/layer_classifier_61_Guided_BP_color.jpg) | ![](images/GuidedBackpropagation/layer_classifier_61_Guided_BP_negative_grad.jpg) | ![](images/GuidedBackpropagation/layer_classifier_61_Guided_BP_positive_grad.jpg) | ![](images/GuidedBackpropagation/layer_classifier_61_Heatmap.png) | ![](images/GuidedBackpropagation/layer_classifier_61_On_Image.png) |
+
+##### 3. Evaluation
 
 ### Grad-CAM
 
