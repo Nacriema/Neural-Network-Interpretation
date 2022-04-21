@@ -18,6 +18,7 @@ Các kỹ thuật được áp dụng như sau:
   * [Grad-CAM](#grad-cam)
   * [Guided Grad-CAM](#guided-grad-cam)
   * [SmoothGrad](#smoothgrad)
+  * [Layer-Wise Relevance Propagation](#layer-wise-relevance-propagation-lrp) 
 * [Concepts](#detecting-concepts): Những concept trừu tượng nào mà Neural Net đã học ? 
 * [Adversarial Examples](): Làm cách nào ta có thể đánh lừa được Neural Network
 * [Influential Instances](): ???
@@ -630,6 +631,29 @@ tạo ra (n), giá trị này được đề xuất sử dụng là 50.
  
 
 ##### 3. Evaluation 
+
+
+### Layer-Wise Relevance Propagation (LRP)
+
+#### Implementation, Result and Evaluation
+
+##### 1. Implementation
+##### 2. Result
+
+| Ảnh gốc                                      | Interested Class                          | Guided Grad-CAM   (Vanilla + GradCAM)   | 
+|----------------------------------------------|-------------------------------------------|-----------------------------------------|
+| ![](images/Input/cat_dog.png)                | Tibetan mastiff                           | ![](images/LRP/dog_LRP_out.png)         |
+| ![](images/Input/goldfinch.png)              | goldfinch, Carduelis carduelis            | ![](images/LRP/goldfinch_LRP_out.png)   | 
+| ![](images/Input/hay2.jpeg)                  | hay                                       | ![](images/LRP/hay_LRP_out.png)         | 
+| ![](images/Input/house_finch.png)            | house finch, linnet, Carpodacus mexicanus | ![](images/LRP/housefinch_LRP_out.png)  | 
+| ![](images/Input/killer_whale.png)           | killer whale                              | ![](images/LRP/killerwhale_LRP_out.png) | 
+| ![](images/Input/rubber_eraser.png)          | rubber eraser                             | ![](images/LRP/rubber_LRP_out.png)      | 
+| ![](images/Input/snake.jpg)                  | snake                                     | ![](images/LRP/snake_LRP_out.png)       | 
+| ![](images/Input/spider.png)                 | spider                                    | ![](images/LRP/spider_LRP_out.png)      | 
+| ![](images/Features/layer_classifier_61.jpg) | goldfish, Carassius auratus               | ![](images/LRP/fish_LRP_out.png)        | 
+
+##### 3. Evaluation
+
 
 ### Though
 
