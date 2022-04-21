@@ -640,7 +640,7 @@ tạo ra (n), giá trị này được đề xuất sử dụng là 50.
 ##### 1. Implementation
 ##### 2. Result
 
-| Ảnh gốc                                      | Interested Class                          | Guided Grad-CAM   (Vanilla + GradCAM)   | 
+| Ảnh gốc                                      | Interested Class                          | LRP Results                             | 
 |----------------------------------------------|-------------------------------------------|-----------------------------------------|
 | ![](images/Input/cat_dog.png)                | Tibetan mastiff                           | ![](images/LRP/dog_LRP_out.png)         |
 | ![](images/Input/goldfinch.png)              | goldfinch, Carduelis carduelis            | ![](images/LRP/goldfinch_LRP_out.png)   | 
