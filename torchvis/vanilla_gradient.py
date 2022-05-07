@@ -11,6 +11,7 @@ Refs:
 """
 import torch
 from torchvis.base_cam import BaseCAM
+from torchvis.utils.logger import print_info
 
 
 class VanillaBackprop(BaseCAM):
@@ -42,6 +43,7 @@ class VanillaBackprop(BaseCAM):
         :param target_class: number of target we want to check
         :return:
         """
+        print_info("Generating CAM using Vanilla Backpropagation")
         # Forward pass
         model_output = self.model(input_image)
         # Zero grads the model

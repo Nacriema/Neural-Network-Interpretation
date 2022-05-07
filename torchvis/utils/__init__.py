@@ -11,3 +11,5 @@ Refs:
 """
 print(f'Invoking __init__.py for {__name__}')
 from torchvis.utils import image  # Consider the preload imports
+from torchvis.utils import logger
+

@@ -21,6 +21,7 @@ import torch
 
 # Something need to be removed
 import matplotlib.pyplot as plt
+from .logger import print_info
 
 
 def apply_heatmap(R: object, sx: float, sy: float) -> object:
@@ -109,7 +110,7 @@ def save_image(im, path):
     if isinstance(im, (np.ndarray, np.generic)):
         im = format_np_output(im)
         im = Image.fromarray(im)
-    print(f'Saving image to path: {path}....')
+    print_info(f'Saving image to path: {path}....')
     im.save(path)
 
 
