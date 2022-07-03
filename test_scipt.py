@@ -13,7 +13,8 @@ import os
 from torchvision import models
 from PIL import Image
 from torchvis.utils.image import preprocess_image, convert_to_grayscale, save_class_activation_images
-from torchvis import VanillaBackprop
+from torchvis import VanillaBackprop, DeconvNet
+
 
 if __name__ == '__main__':
     # Specify the path to the saved model, if needed
@@ -22,14 +23,25 @@ if __name__ == '__main__':
 
     image = Image.open('./input_images/cat_dog.png').convert('RGB')
     image_tensor = preprocess_image(image, resize_im=False)
-    VBP = VanillaBackprop(pretrained_model, layer="features.0")
+
+    # # VANILLA BACKPROPAGATION
+    # VBP = VanillaBackprop(pretrained_model, layer="features.0")
+    #
+    # # Generate gradients
+    # vanilla_grads = VBP.generate_gradients(image_tensor, target_class=243)
+    #
+    # grayscale_vanilla_grads = convert_to_grayscale(vanilla_grads)
+    # save_class_activation_images(image, grayscale_vanilla_grads, file_name='result3')
+    # print('Vanilla backprop completed !')
+
+    # DECONV NET
+    DN = DeconvNet(pretrained_model, layer="features.0")
 
     # Generate gradients
-    vanilla_grads = VBP.generate_gradients(image_tensor, target_class=243)
+    grads = DN.generate_gradients(image_tensor, target_class=243)
 
-    print('xxx')
-    grayscale_vanilla_grads = convert_to_grayscale(vanilla_grads)
-    save_class_activation_images(image, grayscale_vanilla_grads, file_name='result3')
-    print('Vanilla backprop completed !')
+    grayscale_grads = convert_to_grayscale(grads)
+    save_class_activation_images(image, grayscale_grads, file_name='result4')
+    print('DeconvNet backprop completed !')
 
 
