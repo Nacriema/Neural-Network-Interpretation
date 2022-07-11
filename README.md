@@ -803,4 +803,5 @@ Mình sẽ sử dụng Captum của Pytorch để thực hiện TCAV, chi tiết
 
 ## TODO: 
 - [ ] Cập nhật code 1lần/tuần. Chi tiêt cập nhật được ghi lại đầy đủ ở bên dưới:
-  - [x] Ngày 03/07/2022: Viết lại phần code cho DeconvNet và chạy test.
+  - [x] Ngày 03/07/2022: Viết lại phần code cho `DeconvNet` và chạy test.
+  - [x] Ngày 11/07/2022: Viết lại phần code cho `Grad-CAM` và chạy test. 

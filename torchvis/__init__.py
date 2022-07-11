@@ -10,3 +10,5 @@ Refs:
 
 """
 from torchvis.vanilla_gradient import VanillaBackprop
+from torchvis.deconv_net import DeconvNet
+from torchvis.grad_cam import GradCAM

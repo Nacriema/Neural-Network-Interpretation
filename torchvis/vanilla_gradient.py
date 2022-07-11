@@ -20,9 +20,7 @@ class VanillaBackprop(BaseCAM):
     """
 
     def __init__(self, model, layer: str):
-        super(VanillaBackprop, self).__init__(model,
-                                              layer)
-
+        super(VanillaBackprop, self).__init__(model)
         self.gradients = None
         self.hook_layers(layer)
 

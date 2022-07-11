@@ -16,8 +16,7 @@ from abc import ABC, abstractmethod
 
 class BaseCAM:
     def __init__(self,
-                 model: torch.nn.Module,
-                 layer: str):
+                 model: torch.nn.Module):
         self.model = model.eval()
 
     def _get_module_by_name(self, access_string):

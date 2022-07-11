@@ -35,13 +35,18 @@ if __name__ == '__main__':
     # print('Vanilla backprop completed !')
 
     # DECONV NET
-    DN = DeconvNet(pretrained_model, layer="features.0")
+    # DN = DeconvNet(pretrained_model, layer="features.0")
+    #
+    # # Generate gradients
+    # grads = DN.generate_gradients(image_tensor, target_class=243)
+    #
+    # grayscale_grads = convert_to_grayscale(grads)
+    # save_class_activation_images(image, grayscale_grads, file_name='result4')
+    # print('DeconvNet backprop completed !')
 
-    # Generate gradients
-    grads = DN.generate_gradients(image_tensor, target_class=243)
-
-    grayscale_grads = convert_to_grayscale(grads)
-    save_class_activation_images(image, grayscale_grads, file_name='result4')
-    print('DeconvNet backprop completed !')
-
+    # GRAD CAM
+    GC = GradCAM(pretrained_model, layers=["features.28"])
+    cam = GC.generate_gradients(image_tensor, target_class=243)
+    save_class_activation_images(image, cam, file_name='grad_cam', colormap='jet')
+    print('GradCAM completed !!!')
 
