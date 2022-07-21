@@ -13,13 +13,16 @@ import os
 from torchvision import models
 from PIL import Image
 from torchvis.utils.image import preprocess_image, convert_to_grayscale, save_class_activation_images
-from torchvis import VanillaBackprop, DeconvNet
+from torchvis import VanillaBackprop, DeconvNet, GradCAM, GuidedBackprop
 
 
 if __name__ == '__main__':
     # Specify the path to the saved model, if needed
     os.environ['TORCH_HOME'] = '/media/hp/01D576CEBCC511F0/Pytorch/Neural-Network-Interpretation/models/vgg_16_pretrained'
     pretrained_model = models.vgg16(pretrained=True)
+
+    # print("===== PRETRAINED MODEL =====")
+    # print(pretrained_model)
 
     image = Image.open('./input_images/cat_dog.png').convert('RGB')
     image_tensor = preprocess_image(image, resize_im=False)
@@ -45,8 +48,16 @@ if __name__ == '__main__':
     # print('DeconvNet backprop completed !')
 
     # GRAD CAM
-    GC = GradCAM(pretrained_model, layers=["features.28"])
-    cam = GC.generate_gradients(image_tensor, target_class=243)
-    save_class_activation_images(image, cam, file_name='grad_cam', colormap='jet')
-    print('GradCAM completed !!!')
+    # GC = GradCAM(pretrained_model, layers=["features.28"])
+    # cam = GC.generate_gradients(image_tensor, target_class=243)
+    # save_class_activation_images(image, cam, file_name='grad_cam', colormap='jet')
+    # print('GradCAM completed !!!')
+
+    # GUIDED BACKPROP
+    GB = GuidedBackprop(pretrained_model, layer="features.0")
+
+    grads = GB.generate_gradients(image_tensor, target_class=243)
+    grayscale_grads = convert_to_grayscale(grads)
+    save_class_activation_images(image, grayscale_grads, file_name='guided_backprop', colormap='jet')
+    print('Guided Backpropagation completed !!!')
 
