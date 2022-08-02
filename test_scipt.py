@@ -13,7 +13,7 @@ import os
 from torchvision import models
 from PIL import Image
 from torchvis.utils.image import preprocess_image, convert_to_grayscale, save_class_activation_images
-from torchvis import VanillaBackprop, DeconvNet, GradCAM, GuidedBackprop
+from torchvis import VanillaBackprop, DeconvNet, GradCAM, GuidedBackprop, GuidedGradCAM
 
 
 if __name__ == '__main__':
@@ -54,10 +54,15 @@ if __name__ == '__main__':
     # print('GradCAM completed !!!')
 
     # GUIDED BACKPROP
-    GB = GuidedBackprop(pretrained_model, layer="features.0")
+    # GB = GuidedBackprop(pretrained_model, layer="features.0")
+    #
+    # grads = GB.generate_gradients(image_tensor, target_class=243)
+    # grayscale_grads = convert_to_grayscale(grads)
+    # save_class_activation_images(image, grayscale_grads, file_name='guided_backprop', colormap='jet')
+    # print('Guided Backpropagation completed !!!')
 
-    grads = GB.generate_gradients(image_tensor, target_class=243)
-    grayscale_grads = convert_to_grayscale(grads)
-    save_class_activation_images(image, grayscale_grads, file_name='guided_backprop', colormap='jet')
-    print('Guided Backpropagation completed !!!')
-
+    # GUIDED GRAD CAM
+    GGC = GuidedGradCAM(pretrained_model, layers=["features.0", "features.28"])
+    cam = GGC.generate_gradients(image_tensor, target_class=243)
+    save_class_activation_images(image, cam, file_name='guided_grad_cam', colormap='jet')
+    print('Guided Grad Cam Completed !!!')

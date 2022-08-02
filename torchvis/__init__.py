@@ -12,3 +12,5 @@ Refs:
 from torchvis.vanilla_gradient import VanillaBackprop
 from torchvis.deconv_net import DeconvNet
 from torchvis.grad_cam import GradCAM
+from torchvis.guided_backprop import GuidedBackprop
+from torchvis.guided_grad_cam import GuidedGradCAM
