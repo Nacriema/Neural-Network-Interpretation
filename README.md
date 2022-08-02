@@ -806,4 +806,5 @@ Mình sẽ sử dụng Captum của Pytorch để thực hiện TCAV, chi tiết
   - [x] Ngày 03/07/2022: Viết lại phần code cho `DeconvNet` và chạy test.
   - [x] Ngày 11/07/2022: Viết lại phần code cho `Grad-CAM` và chạy test. 
   - [x] Ngày 21/07/2022: Viết lại phần code cho `Guided Backpropagation` và chạy test. 
-  - [ ] Ngày 02/08/2022: Viết lại phần code cho 
+  - [x] Ngày 02/08/2022: Viết lại phần code cho `Guided Grad Cam` và chạy test.
+
